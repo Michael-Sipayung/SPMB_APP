@@ -79,11 +79,6 @@ class StudentController extends Controller // StudentController extends the Cont
                 return $this->redirect(['student/login']);
             }
         }
-        else {
-            // Handle the case when the action is not in the array
-            // For example, you can redirect the user to a 404 page
-            throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
-        }
         return parent::beforeAction($action);
     }
 

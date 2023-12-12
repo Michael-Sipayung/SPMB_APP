@@ -39,7 +39,7 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
 //$this->params['breadcrumbs'][] = $this->title;
 ?>    
 <div class="text-center mb-2">
-    <img src="/bground/itdel.jpg" alt="Logo" class="mb-1" width="120">
+    <img src="https://coderassetmiller.s3.amazonaws.com/itdel.jpg" alt="Logo" class="mb-1" width="120">
 </div>
 <div class="site-login">
     <div class="row justify-content-center">

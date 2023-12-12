@@ -115,14 +115,28 @@ class StudentAkademikForm extends Model {
                 [['fisika_1', 'fisika_2', 'fisika_3', 'fisika_4', 'fisika_5'], 'required'],
                 [['fisika_1', 'fisika_2', 'fisika_3', 'fisika_4', 'fisika_5'], 'number', 'min' => 10, 'max' => 100],
                 
-                [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
-                [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"], //possible to be refactored, join with the common rules
+                //[['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
+                //[['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"], //possible to be refactored, join with the common rules
                 [['file_sertifikat_pmdk', 'file_rapor_pmdk', 'file_rekomendasi_pmdk'], 'safe'],
                 
             ]);
+            //ensure the file not already uploaded, case pmdk, it can be generalized
+            if(self::isFileNotUploaded()){
+                $rules[] = [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'];
+                $rules[] = [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"];
+            }
         }
         //add other rules for other batch: todo
         return $rules;
+    }
+    //isFileNotUploaded : function for ensure the file not already uploaded, case pmdk, it can be generalized
+    private function isFileNotUploaded(){
+        $sql = "SELECT file_rekomendasi FROM t_pendaftar WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        if($data == null){
+            return true;
+        }
+        return false;
     }
     //list of availabe program study, generate it without database
     //possible value for program study, may be added later
@@ -691,6 +705,11 @@ class StudentAkademikForm extends Model {
         'file_nilai_rapor' => 'file_rapor_pmdk',
         'file_sertifikat' => 'file_sertifikat_pmdk',
         'file_rekomendasi' => 'file_rekomendasi_pmdk',
+        'jumlah_pelajaran_un' => 'jumlah_pelajaran_un',
+        'jumlah_nilai_un' => 'jumlah_nilai_un',
+        
+        'jurusan_sekolah_id' => 'jurusan_sekolah',
+        'akreditasi_sekolah' => 'akreditasi_sekolah',
         // Add more if needed
     ];
 
