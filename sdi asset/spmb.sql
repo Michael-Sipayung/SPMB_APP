@@ -1027,3 +1027,17 @@ CREATE TABLE `t_waktu_pengumuman` (
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+CREATE TABLE `t_r_jurusan` (
+  `jurusan_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fakultas_id` int(11) NOT NULL,
+  `nama` varchar(128) DEFAULT NULL,
+  `prefix_nim` varchar(5) DEFAULT NULL,
+  `counter_nim` int(11) DEFAULT NULL,
+  `status_active` int(11) NOT NULL DEFAULT '0',
+  `url` varchar(255) DEFAULT NULL,
+  `desc` text,
+  `afis_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`jurusan_id`),
+  KEY `fk_t_jurusan_t_fakultas1_idx` (`fakultas_id`)
+);
