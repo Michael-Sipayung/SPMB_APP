@@ -13,7 +13,7 @@ class StudentDataDiriForm extends Model {
     public $tanggal_lahir; public $tempat_lahir;
     public $agama_id; public $alamat; public $kelurahan;
     public $provinsi; public $kabupaten; public $alamat_kecamatan;
-    public $kode_pos; public $no_telepon_rumah; public $no_telepon_mobile; public $email;
+    public $kode_pos; public $kab_domisili; public $no_telepon_mobile; public $email;
     //additional variable which store the information (key value pair)
     public static array $relegion = [ //list of relegion
         '0' => 'Islam',
@@ -67,7 +67,7 @@ class StudentDataDiriForm extends Model {
                 'tanggal_lahir','tempat_lahir',
                 'agama_id','alamat','kelurahan','provinsi',
                 'kabupaten','alamat_kecamatan','kode_pos'
-                ,'no_telepon_mobile','email'],'required'],
+                ,'no_telepon_mobile','email','kab_domisili'],'required'],
             ['email','email'], //email must be valid address
             //nik length minimum is 16 and maximum is 16 and must be integer
             ['nik','string','min'=>16 , 'max'=>16,'message'=>'NIK harus 16 digit'],
@@ -88,7 +88,7 @@ class StudentDataDiriForm extends Model {
             ['email','match','pattern'=>'/^[a-zA-Z0-9_.+-]+@(yahoo|gmail|hotmail|del)+\.(com|co.id|ac.id)$/','message'=>'Email tidak valid'],
             //rule for tanggal_lahir must be date format and valid date format is yyyy-mm-dd
             ['tanggal_lahir','date','format'=>'yyyy-mm-dd','message'=>'Format tanggal lahir salah'],
-            ['no_telepon_rumah','match','pattern'=>'/^[0-9]*$/','message'=>'No Telepon tidak boleh mengandung huruf'],
+            //['no_telepon_rumah','match','pattern'=>'/^[0-9]*$/','message'=>'No Telepon tidak boleh mengandung huruf'],
         ];
     }
 
@@ -118,7 +118,8 @@ class StudentDataDiriForm extends Model {
                     'alamat_kab'=>$this->kabupaten,
                     'alamat_kec'=>$this->alamat_kecamatan,
                     'kode_pos'=>$this->kode_pos,
-                    'no_telepon_rumah'=>$this->no_telepon_rumah,
+                    //refactor this code since the user need kab. domisili even it's bad idea
+                    'kab_domisili'=>$this->kab_domisili,
                     'no_telepon_mobile'=>$this->no_telepon_mobile,
                     'email'=>$this->email,
                 ],'user_id = :user_id', [':user_id' => self::getCurrentUserId()])->execute();

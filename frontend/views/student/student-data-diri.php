@@ -217,13 +217,12 @@ $title  = 'Data Diri Mahasiswa';
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri,'no_telepon_rumah',
-        [   'template' => '{label}<div class="input-group">{input}</div>',
-            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-            <i class="bi bi-telephone-inbound-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->label('Telepon')
-        ->textInput(['placeholder'=>'Contoh: 62 21 80643104']); 
-    ?>
+        <?php echo $form->field($model_student_data_diri,'kab_domisili',
+            [   'template' => '{label}<div class="input-group">{input}</div>',
+                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+                <i class="bi bi-house-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])        
+                ->label('Kab. Domisili', ['style' => 'white-space: nowrap;'])->textInput(['placeholder'=>'Contoh: Jakarta']);
+        ?>
     </div>
     <div class="col-12 col-md">        
     <?php echo $form->field($model_student_data_diri,'no_telepon_mobile',
