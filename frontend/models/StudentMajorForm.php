@@ -22,7 +22,6 @@ class StudentMajorForm extends Model
                 'message' => 'Jurusan utama dan jurusan opsional2 tidak boleh sama'],
             ['jurusan_opsional', 'compare', 'compareAttribute' => 'jurusan_opsional2', 'operator' => '!=', 
                 'message' => 'Jurusan opsional 1 dan jurusan opsional 2 tidak boleh sama'],
-        
             //rule for photo, must be image file
             [
                 'file_photo',
