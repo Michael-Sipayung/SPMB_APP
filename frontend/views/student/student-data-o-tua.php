@@ -201,7 +201,7 @@
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-handbag-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentDataOForm::$job, ['prompt' => 'Pilih Pekerjaan Ayah']);
+        ->dropDownList(\app\models\StudentDataOForm::job(), ['prompt' => 'Pilih Pekerjaan Ayah']);
     ?>
     </div>
     <div class="col-12 col-md">
@@ -209,7 +209,7 @@
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-mortarboard-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentDataOForm::$job, ['prompt' => 'Pilih Pekerjaan Ibu']);
+        ->dropDownList(\app\models\StudentDataOForm::job(), ['prompt' => 'Pilih Pekerjaan Ibu']);
     ?>
     </div>
     <div class="col-12 col-md">

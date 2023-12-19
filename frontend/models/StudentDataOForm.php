@@ -33,8 +33,7 @@ class StudentDataOForm extends Model{
         11 => 'S3',
     ];
     //parent job list
-    public static $job =[
-        //generate all available job as key value pair
+    /*public static $job =[
         '1' => 'Tidak Bekerja',
         '2' => 'Nelayan',
         '3' => 'Petani',
@@ -48,7 +47,13 @@ class StudentDataOForm extends Model{
         '11' => 'Buruh',
         '12' => 'Pensiunan',
         '13' => 'Lainnya',
-    ];
+    ];*/
+    public static function job(){
+        $sql = "SELECT * FROM t_r_pekerjaan";
+        $data = Yii::$app->db->createCommand($sql)->queryAll();
+        $data = \yii\helpers\ArrayHelper::map($data, 'pekerjaan_id', 'nama');
+        return $data;
+    }
     //parent salary list
     public static $salary =[
         //generate all available salary as key value pair
