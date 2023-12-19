@@ -55,7 +55,7 @@ $title  = 'Data Informasi Mahasiswa Baru';
     echo $form->field($model, 'jumlah_n',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-bag-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-    ->dropDownList(\app\models\StudentInformasiForm::$get_jumlah_n, 
+    ->dropDownList(\app\models\StudentInformasiForm::get_jumlah_n(), 
     ['prompt' => 'Pilih Jumlah N', 'onchange' => 'this.form.submit();', 'options' => [0 => ['Selected'=>'selected']]])
     ->label("Jumlah N");
 ?>
@@ -66,7 +66,7 @@ if(!is_numeric($model->jumlah_n)) { //prevent user choose non numeric value
     $model->jumlah_n = 0;
 } 
 $total_if=$model->jumlah_n * 1000000+ $model->jumlah_n * 9500000+ $model->jumlah_n * 100000+
-$model->jumlah_n * 100000 + $model->jumlah_n * 100000;
+$model->jumlah_n * 850000 + $model->jumlah_n * 250000;
 $total_tk=$model->jumlah_n * 1000000+ $model->jumlah_n * 6500000+ $model->jumlah_n * 100000+
 $model->jumlah_n * 100000+$model->jumlah_n * 100000;
 $total_bi=$model->jumlah_n * 1000000+ $model->jumlah_n * 9500000+ $model->jumlah_n * 100000+
@@ -74,11 +74,11 @@ $model->jumlah_n * 100000 +$model->jumlah_n * 100000;
 $data  =  [
     ['Jurusan','Pembangunan Dinamis','Pembangunan Tetap','SPP Tahap 1','Perlengkapan Mahasiswa','Perlengkapan Makan','Total Biaya'],
     //array contain multiplication of jumlah_n and the value below, jumlah_n *1000000 for index[1,1]
-    ['S1-informatika', $model->jumlah_n * 1000000, $model->jumlah_n * 9500000, $model->jumlah_n * 100000,$model->jumlah_n * 100000,
-    $model->jumlah_n * 100000 , $total_if],
-    ['D3-Teknologi Komputer', $model->jumlah_n * 1000000, $model->jumlah_n * 6500000, $model->jumlah_n * 100000,$model->jumlah_n * 100000,
+    ['S1-informatika', $model->jumlah_n * 1000000, $model->jumlah_n * 9500000, $model->jumlah_n * 1000000,$model->jumlah_n * 850000,
+    $model->jumlah_n * 250000 , $total_if],
+    ['D3-Teknologi Komputer', $model->jumlah_n * 1000000, $model->jumlah_n * 6500000, $model->jumlah_n * 1000000,$model->jumlah_n * 100000,
     $model->jumlah_n * 100000, $total_tk],
-    ['S1-Teknik Bioproses', $model->jumlah_n * 1000000, $model->jumlah_n * 9500000, $model->jumlah_n * 100000,$model->jumlah_n * 100000,
+    ['S1-Teknik Bioproses', $model->jumlah_n * 1000000, $model->jumlah_n * 9500000, $model->jumlah_n * 1000000,$model->jumlah_n * 100000,
     $model->jumlah_n * 100000, $total_bi]
 ];
 ?>    

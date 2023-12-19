@@ -47,7 +47,10 @@ class StudentMajorForm extends Model
     //fetch the batch list from database, t_r_gelombang table
     public static function getBatchList()
     {
-        $sql = "SELECT gelombang_pendaftaran_id,`desc` FROM t_r_gelombang_pendaftaran";
+        //get current date y-m-d
+        $current_date = date('Y-m-d');
+        $sql = "SELECT mulai,berakhir,gelombang_pendaftaran_id,`desc` FROM t_r_gelombang_pendaftaran
+            where '$current_date' BETWEEN mulai AND berakhir";
         $result = Yii::$app->db->createCommand($sql)->queryAll();
         $list = \yii\helpers\ArrayHelper::map($result, 'gelombang_pendaftaran_id', 'desc');
         return $list;

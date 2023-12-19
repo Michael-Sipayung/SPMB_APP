@@ -54,18 +54,13 @@ class StudentInformasiForm extends Model{
         return false;
     }
     //generate jumlah n value (1-10), key value pair, number not text
-    public static array $get_jumlah_n = [
-        1 => 1,
-        2 => 2,
-        3 => 3,
-        4 => 4, 
-        5 => 5,
-        6 => 6,
-        7 => 7,
-        8 => 8, 
-        9 => 9,
-        10 => 10,
-    ];
+    public static function get_jumlah_n() {
+        $array = [];
+        for ($i = 1; $i <= 50; $i++) {
+            $array[$i] = $i;
+        }
+        return $array;
+    }
     //generate sumber informasi value, key value pair, from table t_r_informasi_del, 
     //field: informasi_del_id,and desc
     public static function getSumberInformasi(){

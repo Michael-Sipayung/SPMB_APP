@@ -337,13 +337,24 @@ class StudentController extends Controller // StudentController extends the Cont
             }
         }
     }
-    //action for autocomplete for school name
-    public static function actionAutocomplete($term) {
+    //action for autocomplete for school name, for all school
+    /*public static function actionAutocomplete($term) {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $results = (new \yii\db\Query())
             ->select('sekolah')
             ->from('t_r_sekolah_dapodik')
             ->where(['like', 'sekolah', $term])
+            ->all();
+        return array_column($results, 'sekolah');
+    }*/
+    //refactoring for sekolah pmdk
+    public static function actionAutocomplete($term) {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $results = (new \yii\db\Query())
+            ->select('a.sekolah')
+            ->from('t_r_sekolah_dapodik a')
+            ->innerJoin('t_sekolah_pmdk b','a.id = b.sekolah_id')
+            ->where(['like', 'a.sekolah', $term])
             ->all();
         return array_column($results, 'sekolah');
     }
