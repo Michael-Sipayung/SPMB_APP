@@ -158,9 +158,9 @@ class StudentAkademikForm extends Model {
     //since we use the behavior of actionAutocomplete(), we must find the id_dapodik from the school name from the 
     //given parameter $sekolah that inputed by user
     public function getSekolahDapodikId($sekolah){
-        $sql = "SELECT npsn FROM t_r_sekolah_dapodik WHERE sekolah = '$sekolah'";
+        $sql = "SELECT id FROM t_r_sekolah_dapodik WHERE sekolah = '$sekolah'";
         $data = Yii::$app->db->createCommand($sql)->queryOne();
-        return $data['npsn'];
+        return $data['id'];
     }
     //auxiliary function to insert data sekolah to table t_pendaftar
     public function tempDataSekolah(){
@@ -371,7 +371,7 @@ class StudentAkademikForm extends Model {
     public static function fetchAsalSekolah(){
         $sql = "SELECT sekolah_dapodik_id FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
-        $sql = "SELECT sekolah FROM t_r_sekolah_dapodik WHERE npsn = '$data'";
+        $sql = "SELECT sekolah FROM t_r_sekolah_dapodik WHERE id = '$data'";
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
         return $data;
     }
