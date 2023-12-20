@@ -10,12 +10,12 @@ class StudentDataOForm extends Model{
     //current available data members, may be added later
     public $nama_ayah_kandung;public $nama_ibu_kandung;public $nik_ayah;
     public $nik_ibu;public $tanggal_lahir_ayah;public $tanggal_lahir_ibu;
-    public $pendidikan_ayah;public $pendidikan_ibu;public $alamat_orang_tua;
+    public $pendidikan_ayah_id;public $pendidikan_ibu_id;public $alamat_orang_tua;
     public $kelurahan;
-    public $provinsi;public $kabupaten;
-    public $kecamatan;
+    public $alamat_prov_orangtua;public $alamat_kab_orangtua;
+    public $alamat_kec_orangtua;
     public $kode_pos_orang_tua;public $no_hp_orangtua;
-    public $pekerjaan_ayah;public $pekerjaan_ibu;public $penghasilan_ayah;
+    public $pekerjaan_ayah_id;public $pekerjaan_ibu_id;public $penghasilan_ayah;
     public $penghasilan_ibu;
     //parent education list
     public  static $education = [
@@ -32,22 +32,14 @@ class StudentDataOForm extends Model{
         10 => 'S2',
         11 => 'S3',
     ];
-    //parent job list
-    /*public static $job =[
-        '1' => 'Tidak Bekerja',
-        '2' => 'Nelayan',
-        '3' => 'Petani',
-        '4' => 'Peternak',
-        '5' => 'PNS/TNI/POLRI',
-        '6' => 'Karyawan Swasta',
-        '7' => 'Pedagang Kecil',
-        '8' => 'Pedagang Besar',
-        '9' => 'Wiraswasta',
-        '10' => 'Wirausaha',
-        '11' => 'Buruh',
-        '12' => 'Pensiunan',
-        '13' => 'Lainnya',
-    ];*/
+    //using t_r_pendidikan table to fetch the data
+    public static function education(){
+        $sql = "SELECT * FROM t_r_jenjang_pendidikan";
+        $data = Yii::$app->db->createCommand($sql)->queryAll();
+        $data = \yii\helpers\ArrayHelper::map($data, 'jenjang_pendidikan_id', 'name');
+        return $data;
+    }
+
     public static function job(){
         $sql = "SELECT * FROM t_r_pekerjaan";
         $data = Yii::$app->db->createCommand($sql)->queryAll();
@@ -57,12 +49,13 @@ class StudentDataOForm extends Model{
     //parent salary list
     public static $salary =[
         //generate all available salary as key value pair
-        '1' => 'Kurang dari Rp. 500.000',
-        '2' => 'Rp. 500.000 - Rp. 999.999',
-        '3' => 'Rp. 1.000.000 - Rp. 1.999.999',
-        '4' => 'Rp. 2.000.000 - Rp. 4.999.999',
-        '5' => 'Rp. 5.000.000 - Rp. 20.000.000',
-        '6' => 'Lebih dari Rp. 20.000.000',
+        500000 => 'Kurang dari Rp. 500.000',
+        1000000 => 'Rp. 500.000 - Rp. 999.999',
+        2000000 => 'Rp. 1.000.000 - Rp. 1.999.999',
+        4000000 => 'Rp. 2.000.000 - Rp. 3.999.999',
+        6000000 => 'Rp. 5.000.000 - Rp. 7.000.000',
+        10000000 => 'Rp. 7.000.000 - Rp. 10.000.000',
+        20000000 => 'Lebih dari Rp. 20.000.000',
     ];
     //rules to validate the data using the above data members
     public function rules() {
@@ -70,8 +63,8 @@ class StudentDataOForm extends Model{
         //more test needed to ensure the data is valid
         return [
             [['nama_ayah_kandung','nama_ibu_kandung','tanggal_lahir_ayah','tanggal_lahir_ibu',
-                'pendidikan_ayah', 'pendidikan_ibu','pekerjaan_ayah','pekerjaan_ibu',
-                'penghasilan_ayah','penghasilan_ibu','provinsi','kecamatan','kabupaten'
+                'pendidikan_ayah_id', 'pendidikan_ibu_id','pekerjaan_ayah_id','pekerjaan_ibu_id',
+                'penghasilan_ayah','penghasilan_ibu','alamat_prov_orangtua','alamat_kec_orangtua','alamat_kab_orangtua'
                 ,'alamat_orang_tua',/*'keluruhan','provinsi','kabupaten','kecamatan,'*/'no_hp_orangtua',], 'required'],
 
             ['nik_ayah','string','min'=>16 , 'max'=>16,'message'=>'NIK harus 16 digit'],
@@ -115,26 +108,27 @@ class StudentDataOForm extends Model{
                         'tanggal_lahir_ayah'=>$this->tanggal_lahir_ayah,
                         'tanggal_lahir_ibu'=>$this->tanggal_lahir_ibu,
 
-                        'pendidikan_ayah_id'=>$this->pendidikan_ayah,
-                        'pendidikan_ibu_id'=>$this->pendidikan_ibu,
+                        'pendidikan_ayah_id'=>$this->pendidikan_ayah_id,
+                        'pendidikan_ibu_id'=>$this->pendidikan_ibu_id,
                         'alamat_orang_tua'=>$this->alamat_orang_tua,
 
                         'kode_pos_orang_tua'=>$this->kode_pos_orang_tua,
-                        'pekerjaan_ayah_id'=>$this->pekerjaan_ayah,
-                        'pekerjaan_ibu_id'=>$this->pekerjaan_ibu,
+                        'pekerjaan_ayah_id'=>$this->pekerjaan_ayah_id,
+                        'pekerjaan_ibu_id'=>$this->pekerjaan_ibu_id,
                         'penghasilan_ayah'=>$this->penghasilan_ayah,
                         'penghasilan_ibu'=>$this->penghasilan_ibu,
                         'no_hp_orangtua'=>$this->no_hp_orangtua,
                         
-                        'alamat_kec_orangtua'=>$this->kecamatan,
-                        'alamat_prov_orangtua'=>$this->provinsi,
+                        'alamat_kec_orangtua'=>$this->alamat_kec_orangtua,
+                        'alamat_prov_orangtua'=>$this->alamat_prov_orangtua,
 
                         //'alamat_kel_orangtua'=>$this->kelurahan,
-                        'alamat_kab_orangtua'=>$this->kabupaten,
+                        'alamat_kab_orangtua'=>$this->alamat_kab_orangtua,
                     ],
                     //condition : user_id from the current logged in user using getCurrentUserId() method
                     'user_id = '.StudentDataDiriForm::getCurrentUserId())->execute();
                     //Yii::$app->session->setFlash('success', 'Data orang tua berhasil disimpan');
+                    self::updateTotalIncome(); //update total income
                     return true;
                 }catch(Exception $e){ //for debugging purpose
                     //set error flash message
@@ -167,6 +161,13 @@ class StudentDataOForm extends Model{
         }
         return null;
     }
+    //update total income from parent, total = $father + $mother
+    private function updateTotalIncome(){
+        $sql = "UPDATE t_pendaftar SET penghasilan_total = penghasilan_ayah + penghasilan_ibu WHERE user_id = 
+            ".StudentDataDiriForm::getCurrentUserId();
+        Yii::$app->db->createCommand($sql)->execute();
+    }
+
 }
 
 ?>

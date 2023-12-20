@@ -400,7 +400,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    <div class="accordion-body">Setiap peserta diijinkan mendaftar lebih dari satu jurusan, maksimal jurusan yang dapat dipilih adalah sebanyak tiga jurusan.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -410,7 +410,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+    <div class="accordion-body">Silahkan mengunjungi portal resmi pendaftaran mahasiswa baru IT Del. Klik menu buat akun pada portal tersebut kemudian login dengan akun yang telah anda buat.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -420,7 +420,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+    <div class="accordion-body">Kode verifikasi dikirimkan secara otomatis melalui sistem, silahkan cek email anda secara berkala atau bertahap dan pastikan email yang anda berikan adalah benar.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -430,7 +430,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the fourth item's accordion body.</div>
+    <div class="accordion-body">IT Del menyediakan beberapa program studi, diantaranya : manajemen rekayasa, teknik elektro, teknik informatika, teknik bioproses dan beberapa jurusan lainnya.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -440,7 +440,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the fifth item's accordion body.</div>
+    <div class="accordion-body">Silahkan membuka portal SPMB IT Del dan kemudikan memilih menu lupa password, isikan username dan hp anda. Password baru anda akan dikirimkan melalui email, gunakan identitas tersebut untuk login pada portal SPMB.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -450,7 +450,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the sixth item's accordion body.</div>
+    <div class="accordion-body">Setiap peserta diharapkan telah menyediakan pas photo, file sertifikat, file nilai rapor serta berkas pendukung lainnya.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -460,7 +460,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the seventh item's accordion body.</div>
+    <div class="accordion-body">Silahkan periksa email anda, username tersebut dapat ditemukan ketika anda mendaftarkan akun ataupun ketika anda melakukan reset password.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -470,7 +470,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the eighth item's accordion body.</div>
+    <div class="accordion-body">Salah satu faktor mengapa file anda tidak dapat diupload adalah dikarenakan file tersebut terlalu besar, atau ukuran file yang anda berikan tidak memenuhi batas maximal yang telah kami tentukan.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -480,7 +480,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the ninth item's accordion body.</div>
+    <div class="accordion-body">Setiap peserta wajib melakukan pendaftaran ulang dan informasi lebih lanjut mengenai pendaftaran ulang akan disampaikan melalui portal SPMB IT Del.</div>
     </div>  
 </div>
 </div>

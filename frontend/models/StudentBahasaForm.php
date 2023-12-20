@@ -4,15 +4,15 @@ use Yii;
 use yii\base\Model;
 use Exception;
 class StudentBahasaForm extends Model{
-    public $english; 
-    public $non_english;
-    public $non_english_ability;
+    public $kemampuan_bahasa_inggris; 
+    public $bahasa_asing_lainnya;
+    public $kemampuan_bahasa_asing_lainnya;
     //rules for handling input data from user
     public function rules(){
         return [
-            [['english'], 'required'],
-            [['english'], 'string', 'max' => 255],
-            [['non_english','non_english_ability'], 'string', 'max' => 255],
+            [['kemampuan_bahasa_inggris'], 'required'],
+            [['kemampuan_bahasa_inggris'], 'string', 'max' => 255],
+            [['bahasa_asing_lainnya','kemampuan_bahasa_asing_lainnya'], 'string', 'max' => 255],
         ];
     }
     //generate list of english ability
@@ -25,9 +25,9 @@ class StudentBahasaForm extends Model{
     public function updateBahasa(){
         //update data to table t_pendaftar 
         Yii::$app->db->createCommand()->update('t_pendaftar',[
-            'kemampuan_bahasa_inggris'=>$this->english,
-            'bahasa_asing_lainnya'=>$this->non_english,
-            'kemampuan_bahasa_asing_lainnya'=>$this->non_english_ability
+            'kemampuan_bahasa_inggris'=>$this->kemampuan_bahasa_inggris,
+            'bahasa_asing_lainnya'=>$this->bahasa_asing_lainnya,
+            'kemampuan_bahasa_asing_lainnya'=>$this->kemampuan_bahasa_asing_lainnya
         ],
         //condition : user_id from the current logged in user using getCurrentUserId() method
         'user_id = '.StudentDataDiriForm::getCurrentUserId())->execute();
@@ -77,6 +77,17 @@ class StudentBahasaForm extends Model{
         }
         //if the user_id is not yet exist, return false
         return false;
+    }
+    //populate data from database to form
+    public static function findDataBahasa(){
+        $sql = "SELECT * FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
+        $data = Yii::$app->db->createCommand($sql)->queryOne();
+        if($data !== false){
+            $model  = new self();
+            $model->setAttributes($data, false); //populated the data to the form
+            return $model;
+        }
+        return null;
     }
 }
 

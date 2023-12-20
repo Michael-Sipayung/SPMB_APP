@@ -143,10 +143,12 @@ $title  = 'Data Diri Mahasiswa';
 </div>
 <div class="row">
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri, 'jenis_kelamin',
+    <?php echo $form->field($model_student_data_diri, 'jenis_kelamin_id',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <i class="bi bi-tags-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->dropDownList(\app\models\StudentDataDiriForm::$gen, ['prompt' => 'Pilih Jenis Kelamin']);
+        <i class="bi bi-tags-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->label("Jenis Kelamin")
+        ->dropDownList(\app\models\StudentDataDiriForm::$gen, ['prompt' => 'Pilih Jenis Kelamin']);
     ?>
     </div>
     <div class="col-12 col-md">
@@ -173,12 +175,14 @@ $title  = 'Data Diri Mahasiswa';
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri, 'provinsi',
+    <?php echo $form->field($model_student_data_diri, 'alamat_prov',
         ['template' => '{label}<div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-signpost-2-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->label("Provinsi")
         ->dropDownList(\app\models\StudentAddress::getProvince(), 
-        ['prompt' => 'Pilih Provinsi','id' => 'province-dropdown', 'onchange' => 'this.form.submit();']);
+        ['prompt' => 'Pilih Provinsi',
+        'id' => 'province-dropdown', 'onchange' => 'this.form.submit();']);
         //bug fixes for generating provinsi and populate kabupaten, onchange event is used to submit form
         ?>
     </div>
@@ -187,22 +191,23 @@ $title  = 'Data Diri Mahasiswa';
 <div class="row">
     <div class="col-12 col-md">
     <?php
-        echo $form->field($model_student_data_diri, 'kabupaten',
+        echo $form->field($model_student_data_diri, 'alamat_kab',
         [
         'template' => '{label}<div class="input-group">{input}</div>',    
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-map-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentAddress::getKabupaten($model_student_data_diri->provinsi), 
+        ->label('Kabupaten')
+        ->dropDownList(\app\models\StudentAddress::getKabupaten($model_student_data_diri->alamat_prov), 
         ['prompt' => 'Pilih Kabupaten', 'id' => 'kabupaten-dropdown', 'onchange' => 'this.form.submit();']);
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri,'alamat_kecamatan',
+    <?php echo $form->field($model_student_data_diri,'alamat_kec',
         [
         'template' => '{label}<div class="input-group">{input}</div>',    
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-signpost-2-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentAddress::getKecamatan($model_student_data_diri->kabupaten), 
+        ->dropDownList(\app\models\StudentAddress::getKecamatan($model_student_data_diri->alamat_kab), 
         ['prompt' => 'Pilih Kecamatan'/*, 'id' => 'kecamatan-dropdown', 'onchange' => 'this.form.submit();'*/])
         ->label("Kecamatan");
     ?>
@@ -217,11 +222,22 @@ $title  = 'Data Diri Mahasiswa';
     ?>
     </div>
     <div class="col-12 col-md">
-        <?php echo $form->field($model_student_data_diri,'kab_domisili',
+    <?php echo $form->field($model_student_data_diri,'kab_domisili',
+        [
+        'template' => '{label}<div class="input-group">{input}</div>',    
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-house-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->dropDownList(StudentDataDiriForm::studentDomisili(), 
+        ['prompt' => 'Pilih Kab. Domisili'/*, 'id' => 'kecamatan-dropdown', 'onchange' => 'this.form.submit();'*/])
+        ->label("Domisili");
+    ?>
+        <?php 
+            /*echo $form->field($model_student_data_diri,'kab_domisili',
             [   'template' => '{label}<div class="input-group">{input}</div>',
                 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
                 <i class="bi bi-house-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])        
                 ->label('Kab. Domisili', ['style' => 'white-space: nowrap;'])->textInput(['placeholder'=>'Contoh: Jakarta']);
+            */
         ?>
     </div>
     <div class="col-12 col-md">        

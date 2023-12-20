@@ -379,7 +379,10 @@ class StudentController extends Controller // StudentController extends the Cont
     //action for data bahasa, this is already cleaned up
     public function actionStudentBahasa(){
         try{
-            $model = new StudentBahasaForm(); //create an instance of the StudentBahasaForm class
+            $model = StudentBahasaForm::findDataBahasa();
+            if($model === null){
+                $model = new StudentBahasaForm();
+            }
             if($model->load(Yii::$app->request->post())&& $model->insertBahasaData()){
                 return $this->redirect(['student/student-extra']);
             }

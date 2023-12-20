@@ -9,10 +9,10 @@ use yii\base\Model;
 class StudentDataDiriForm extends Model {
     //personal information for student using array, non-static data memeber
     public $nik; public $nisn; public $no_kps;
-    public $nama; public $jenis_kelamin;
+    public $nama; public $jenis_kelamin_id;
     public $tanggal_lahir; public $tempat_lahir;
     public $agama_id; public $alamat; public $kelurahan;
-    public $provinsi; public $kabupaten; public $alamat_kecamatan;
+    public $alamat_prov; public $alamat_kab; public $alamat_kec;
     public $kode_pos; public $kab_domisili; public $no_telepon_mobile; public $email;
     //additional variable which store the information (key value pair)
     public static array $relegion = [ //list of relegion
@@ -63,10 +63,10 @@ class StudentDataDiriForm extends Model {
     {
         //rules for all data member above
         return [
-            [['nik','nisn','nama','jenis_kelamin',
+            [['nik','nisn','nama','jenis_kelamin_id',
                 'tanggal_lahir','tempat_lahir',
-                'agama_id','alamat','kelurahan','provinsi',
-                'kabupaten','alamat_kecamatan','kode_pos'
+                'agama_id','alamat','kelurahan','alamat_prov',
+                'alamat_kab','alamat_kec','kode_pos'
                 ,'no_telepon_mobile','email','kab_domisili'],'required'],
             ['email','email'], //email must be valid address
             //nik length minimum is 16 and maximum is 16 and must be integer
@@ -108,15 +108,15 @@ class StudentDataDiriForm extends Model {
                     'nisn'=>$this->nisn,
                     'no_kps'=>$this->no_kps,
                     'nama'=>$this->nama,
-                    'jenis_kelamin_id'=>$this->jenis_kelamin,
+                    'jenis_kelamin_id'=>$this->jenis_kelamin_id,
                     'tanggal_lahir'=>$this->tanggal_lahir,
                     'tempat_lahir'=>$this->tempat_lahir,
                     'agama_id'=>$this->agama_id,
                     'alamat'=>$this->alamat,
                     'kelurahan'=>$this->kelurahan,
-                    'alamat_prov'=>$this->provinsi,
-                    'alamat_kab'=>$this->kabupaten,
-                    'alamat_kec'=>$this->alamat_kecamatan,
+                    'alamat_prov'=>$this->alamat_prov,
+                    'alamat_kab'=>$this->alamat_kab,
+                    'alamat_kec'=>$this->alamat_kec,
                     'kode_pos'=>$this->kode_pos,
                     //refactor this code since the user need kab. domisili even it's bad idea
                     'kab_domisili'=>$this->kab_domisili,
@@ -208,6 +208,14 @@ class StudentDataDiriForm extends Model {
             return $model;
         }
         return null;
+    }
+    //populate data kab domisili to the view, case using dropdown menu
+    public static function studentDomisili(){
+        $sql = "Select kabupaten_id,nama from t_r_kabupaten";
+        //show it as key value and send to the dropdown menu
+        $data = Yii::$app->db->createCommand($sql)->queryAll();
+        $data = \yii\helpers\ArrayHelper::map($data, 'kabupaten_id','nama');
+        return $data;
     }
 }
 

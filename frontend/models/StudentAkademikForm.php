@@ -172,14 +172,16 @@ class StudentAkademikForm extends Model {
             'jumlah_nilai_un'=>$this->jumlah_nilai_un,
         ],['user_id'=>StudentDataDiriForm::getCurrentUserId()])->execute();
     }
-    //auxiliary function to update data nilai akademik to table t_nilai_rapor, condition getCurrenPendafarId()
+    //auxiliary function to update data nilai akademik to table t_nilai_rapor, 
+    //condition getCurrenPendafarId()
     public function tempDataNilaiAkademik(){
         Yii::$app->db->createCommand()->update('t_nilai_rapor',[
             'smt'=>$this->jumlah_pelajaran,
             'nilai'=>$this->nilai_semester,
         ],['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
     }
-    //auxilary function to insert pendaftar_id to table t_nilai_rapor, worst case: first data is t_nili_rapor
+    //auxilary function to insert pendaftar_id to table t_nilai_rapor,
+    //worst case: first data is t_nili_rapor
     public function tempPendaftarIdNilaiAkademik(){ //good for research, new implementation
         Yii::$app->db->createCommand()->insert('t_nilai_rapor',
         [
