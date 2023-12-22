@@ -55,7 +55,7 @@ $title  = 'Data Kemampuan Bahasa Asing';
     echo $form->field($model, 'kemampuan_bahasa_inggris',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-globe text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-    ->dropDownList(\app\models\StudentBahasaForm::$english_ability, ['prompt' => 'Pilih Kemampuan Bahasa Inggris'])
+    ->dropDownList(\app\models\StudentBahasaForm::english_ability(), ['prompt' => 'Pilih Kemampuan Bahasa Inggris'])
     ->label("Bahasa Inggris");
 ?>
 <?php
@@ -69,7 +69,7 @@ $title  = 'Data Kemampuan Bahasa Asing';
     echo $form->field($model, 'kemampuan_bahasa_asing_lainnya',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-translate text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-    ->dropDownList(\app\models\StudentBahasaForm::$english_ability, ['prompt' => 'Pilih Kemampuan Bahasa Asing Lainnya'])
+    ->dropDownList(\app\models\StudentBahasaForm::english_ability(), ['prompt' => 'Pilih Kemampuan Bahasa Asing Lainnya'])
     ->label(false);
 ?>
     <div class="form-group" style="display: flex; justify-content: flex-end;">

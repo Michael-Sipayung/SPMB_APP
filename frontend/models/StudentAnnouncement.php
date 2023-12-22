@@ -103,5 +103,9 @@ class StudentAnnouncement extends Model{
     public static function identityOtherInformation(){
         return "N/A";
     }
+    //populate the data from database, case no peserta
+    public static function identityPeserta(){
+        return "N/A";
+    }
 
 }

@@ -39,6 +39,8 @@
 </style>
 </html>
 <?php
+
+use app\models\StudentInformasiForm;
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper; //for using array helper
@@ -64,22 +66,44 @@ $title  = 'Data Informasi Mahasiswa Baru';
 //data to fetch to the table below
 if(!is_numeric($model->jumlah_n)) { //prevent user choose non numeric value
     $model->jumlah_n = 0;
-} 
+}
+//fetch name which already stored in database
+$firstMajorName  = StudentInformasiForm::getMainMajor()['nama'];
+$secondMajorName = StudentInformasiForm::getSecondMajor()['nama'];
+$thirdMajorName  = StudentInformasiForm::getThirdMajor()['nama'];
+//fetch corresponding fee value from database
+$perlengkapan_mahasiswa = StudentInformasiForm::getPerlengkapanMahasiswa();
+$perlengkapan_makan = StudentInformasiForm::getPerlengkapanMakan();
+$spp_tahap_awal  = StudentInformasiForm::getSpp();
+//todo : fetch pembangunan tetap and pembangunan dinamis information, todo
+$pembangunan_dinamis = $model->jumlah_n* 1000000;
+//fetch pembangunan tetap, todo : data is based on choosen batch, parse choosenBatch() to get the data
+$main_biaya_pembangunan = StudentInformasiForm::getMainBiayaPembangunan(119);
+$second_biaya_pembangunan = StudentInformasiForm::getSecondBiayaPembangunan(119);
+$third_biaya_pembangunan = StudentInformasiForm::getThirdBiayaPembangunan(119);
+//count total fee for each major
+$totalMain  = $perlengkapan_mahasiswa + $perlengkapan_makan + $spp_tahap_awal + $pembangunan_dinamis + $main_biaya_pembangunan ;
+$totalSecond = $perlengkapan_mahasiswa + $perlengkapan_makan + $spp_tahap_awal + $pembangunan_dinamis + $second_biaya_pembangunan ;
+$totalThird  = $perlengkapan_mahasiswa + $perlengkapan_makan + $spp_tahap_awal + $pembangunan_dinamis  + $third_biaya_pembangunan;
+
+//refactoring code
+/*
 $total_if=$model->jumlah_n * 1000000+ $model->jumlah_n * 9500000+ $model->jumlah_n * 100000+
 $model->jumlah_n * 850000 + $model->jumlah_n * 250000;
 $total_tk=$model->jumlah_n * 1000000+ $model->jumlah_n * 6500000+ $model->jumlah_n * 100000+
 $model->jumlah_n * 100000+$model->jumlah_n * 100000;
 $total_bi=$model->jumlah_n * 1000000+ $model->jumlah_n * 9500000+ $model->jumlah_n * 100000+
 $model->jumlah_n * 100000 +$model->jumlah_n * 100000;
+*/
 $data  =  [
-    ['Jurusan','Pembangunan Dinamis','Pembangunan Tetap','SPP Tahap 1','Perlengkapan Mahasiswa','Perlengkapan Makan','Total Biaya'],
+    ['Jurusan','Pembangunan Dinamis '. '( * <i>N</i> )','Pembangunan Tetap','SPP Tahap 1','Perlengkapan Mahasiswa','Perlengkapan Makan','Total Biaya'],
     //array contain multiplication of jumlah_n and the value below, jumlah_n *1000000 for index[1,1]
-    ['S1-informatika', $model->jumlah_n * 1000000, $model->jumlah_n * 9500000, $model->jumlah_n * 1000000,$model->jumlah_n * 850000,
-    $model->jumlah_n * 250000 , $total_if],
-    ['D3-Teknologi Komputer', $model->jumlah_n * 1000000, $model->jumlah_n * 6500000, $model->jumlah_n * 1000000,$model->jumlah_n * 100000,
-    $model->jumlah_n * 100000, $total_tk],
-    ['S1-Teknik Bioproses', $model->jumlah_n * 1000000, $model->jumlah_n * 9500000, $model->jumlah_n * 1000000,$model->jumlah_n * 100000,
-    $model->jumlah_n * 100000, $total_bi]
+    [$firstMajorName, $pembangunan_dinamis, $main_biaya_pembangunan, $spp_tahap_awal,$perlengkapan_mahasiswa,
+    $perlengkapan_makan , $totalMain],
+    [$secondMajorName,$pembangunan_dinamis, $second_biaya_pembangunan, $spp_tahap_awal,$perlengkapan_mahasiswa,
+    $perlengkapan_makan, $totalSecond],
+    [$thirdMajorName, $pembangunan_dinamis, $third_biaya_pembangunan,  $spp_tahap_awal,$perlengkapan_mahasiswa,
+    $perlengkapan_makan, $totalThird]
 ];
 ?>    
 <div class="table-responsive">
@@ -126,7 +150,7 @@ $data  =  [
     echo $form->field($model, 'motivasi',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-lightbulb-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-    ->dropDownList(\app\models\StudentInformasiForm::$get_motivasi, ['prompt' => 'Pilih Motivasi Kuliah di IT Del'])
+    ->dropDownList(\app\models\StudentInformasiForm::get_motivasi(), ['prompt' => 'Pilih Motivasi Kuliah di IT Del'])
     ->label("Motivasi Kuliah di IT Del");
 ?>
 

@@ -38,6 +38,7 @@ $cards = [
     'Identitas Peserta Ujian' => [
         'icon' => 'fas fa-user-check',
         'details' => [
+            'No Peserta' => ['icon' => 'fas fa-id-card', 'value' => StudentAnnouncement::identityPeserta()],
             'Username' => ['icon' => 'fas fa-user', 'value' => StudentAnnouncement::identityUsername()],
             'Password' => ['icon' => 'fas fa-key', 'value' => StudentAnnouncement::identityPassword()],
             'Keterangan' => ['icon' => 'fas fa-exclamation-circle', 'value' => StudentAnnouncement::identityOtherInformation()]

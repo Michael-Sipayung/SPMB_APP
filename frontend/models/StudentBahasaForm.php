@@ -21,6 +21,13 @@ class StudentBahasaForm extends Model{
         2 => 'Cukup',
         3 => 'Baik',
     ];
+    //populate english ability data from database to form
+    public static function english_ability(){
+        $sql = "select kemampuan_bahasa_id, `desc` from t_r_kemampuan_bahasa";
+        $data = Yii::$app->db->createCommand($sql)->queryAll();
+        $data = array_column($data, 'desc', 'kemampuan_bahasa_id');
+        return $data;
+    }
     //update bahasa to table t_pendaftar
     public function updateBahasa(){
         //update data to table t_pendaftar 

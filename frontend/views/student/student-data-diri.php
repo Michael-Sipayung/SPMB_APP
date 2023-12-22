@@ -85,7 +85,7 @@ $title  = 'Data Diri Mahasiswa';
         'template' => "{label}\n<div class=\"col-lg-8\">{input}</div>\n<div class=\"col-lg-3\">{error}</div>",
         'labelOptions' => ['class' => 'col-lg-3 control-label']
     ])
-    ->dropDownList(\app\models\StudentDataDiriForm::$relegion, ['prompt' => 'Pilih Agama'])
+    ->dropDownList(\app\models\StudentDataDiriForm::relegion(), ['prompt' => 'Pilih Agama'])
     ->label("Agama");
     ?>
     </div>
@@ -148,7 +148,7 @@ $title  = 'Data Diri Mahasiswa';
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-tags-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
         ->label("Jenis Kelamin")
-        ->dropDownList(\app\models\StudentDataDiriForm::$gen, ['prompt' => 'Pilih Jenis Kelamin']);
+        ->dropDownList(\app\models\StudentDataDiriForm::gen(), ['prompt' => 'Pilih Jenis Kelamin']);
     ?>
     </div>
     <div class="col-12 col-md">

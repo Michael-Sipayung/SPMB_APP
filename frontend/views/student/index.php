@@ -210,6 +210,11 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
 </div>
 </div> 
 <br>
+<br>
+<div class="position-relative overflow-hidden" style="height: 65vh;">
+    <div class="position-absolute w-100 h-100" style="background: url('https://coderassetmiller.s3.amazonaws.com/pmb+new+asset/download+(1)+(1)+(1)+(1).png') no-repeat center center / cover;"></div>
+</div>
+<br>
 <div class="regpro">
     <h2 class="text-center mb-4">Alur Pendaftaran Mahasiswa Baru</h2>
     <div class="container">
@@ -282,7 +287,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100 bg-primary text-white">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-users"></i> Pendaftar SPMB</h5>
-                    <p class="card-text">Total mahasiswa yang telah mendaftar di IT Del : 10000</p>
+                    <p class="card-text">Total mahasiswa yang telah mendaftar di IT Del : 7000</p>
                 </div>
             </div>
         </div>
@@ -290,7 +295,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100 bg-success text-white">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-user-plus"></i> Mahasiswa Aktif</h5>
-                    <p class="card-text">Jumlah mahasiswa aktif yang telah terdaftar di IT Del : 8000</p>
+                    <p class="card-text">Jumlah mahasiswa aktif yang telah terdaftar di IT Del : 1500</p>
                 </div>
             </div>
         </div>
@@ -298,7 +303,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100 bg-info text-white">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-graduation-cap"></i> Alumni</h5>
-                    <p class="card-text">Jumlah mahasiswa yang telah menyelesaikan studi di IT Del : 800</p>
+                    <p class="card-text">Mahasiswa yang telah menyelesaikan studi : 4500</p>
                 </div>
             </div>
         </div>
@@ -306,7 +311,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100 bg-success text-white">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-award"></i> Penerima Beasiswa</h5>
-                    <p class="card-text">Jumlah mahasiswa penerima beasiswa di IT Del : 500</p>
+                    <p class="card-text">Jumlah mahasiswa penerima beasiswa di IT Del : 1000</p>
                 </div>
             </div>
         </div>
@@ -321,8 +326,8 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100">
                 <img src="https://coderassetmiller.s3.amazonaws.com/1.jpg" class="card-img-top" alt="Image 1">
                 <div class="card-body">
-                    <h5 class="card-title">Title 1</h5>
-                    <p class="card-text">This is a description of the first image.</p>
+                    <h5 class="card-title">Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Pengukuhan dilaksanakan dalan sidang terbuka, oleh rektor IT Del.</p>
                 </div>
             </div>
         </div>
@@ -330,8 +335,8 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100">
                 <img src="https://coderassetmiller.s3.amazonaws.com/2.jpg" class="card-img-top" alt="Image 2">
                 <div class="card-body">
-                    <h5 class="card-title">Title 2</h5>
-                    <p class="card-text">This is a description of the second image.</p>
+                    <h5 class="card-title">Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Pengukuhan dilaksanakan dalan sidang terbuka, oleh rektor IT Del.</p>
                 </div>
             </div>
         </div>
@@ -339,12 +344,42 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100">
                 <img src="https://coderassetmiller.s3.amazonaws.com/3.jpg" class="card-img-top" alt="Image 2">
                 <div class="card-body">
-                    <h5 class="card-title">Title 3</h5>
-                    <p class="card-text">This is a description of the third image.</p>
+                    <h5 class="card-title">Seleksi Ujian Saringan Masuk</h5>
+                    <p class="card-text">Setiap peserta akan mengikuti kegiatan proses seleksi ujian saringan masuk.</p>
                 </div>
             </div>
         </div>
-        <!-- Add more cards as needed -->
+    </div>
+    <!-- next image galery -->
+    <br>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://coderassetmiller.s3.amazonaws.com/pmb+new+asset/9vxxpf7xe85cVOfyllGPEgZwCPqmHOW9.jpg" class="card-img-top" alt="Image 1">
+                <div class="card-body">
+                    <h5 class="card-title">Upacara Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Setelah Calon Mahasiswa Mengikuti Proses Seleksi Masuk Institut Teknologi Del (IT Del), mereka akan dikukuhkan.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://coderassetmiller.s3.amazonaws.com/pmb+new+asset/fA_SbNfrhQvoLDg3gLvcrv7zUznbY1S3.jpg" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                    <h5 class="card-title">Upacara Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Setelah Calon Mahasiswa Mengikuti Proses Seleksi Masuk Institut Teknologi Del (IT Del), mereka akan dikukuhkan.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://coderassetmiller.s3.amazonaws.com/pmb+new+asset/HXqZGFT_48F_gSumeE1_D_EuFWLzQnrP.jpg" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                    <h5 class="card-title">Upacara Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Setelah Calon Mahasiswa Mengikuti Proses Seleksi Masuk Institut Teknologi Del (IT Del), mereka akan dikukuhkan.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </div>
@@ -545,7 +580,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
 <script type="text/javascript">
         (function () {
             var options = {
-                whatsapp: "+62-822-7219-4708", // WhatsApp number
+                whatsapp: "+62-812-9383-0184", // WhatsApp number
                 call_to_action: "Message us", // Call to action
                 position: "right", // Position may be 'right' or 'left'
             };
