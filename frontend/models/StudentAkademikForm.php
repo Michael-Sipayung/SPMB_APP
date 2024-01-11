@@ -72,7 +72,7 @@ class StudentAkademikForm extends Model {
             [['akreditasi_sekolah'], 'string', 'max' => 2],
             [['akreditasi_sekolah'], 'in', 'range' => self::$acreditation],
             [['jumlah_pelajaran_un'], 'integer', 'min' => 2, 'max' => 100],
-            ['jumlah_nilai_un', 'number', 'min' => 2, 'max' => 100],
+            ['jumlah_nilai_un', 'number', 'min' => 2, 'max' => 10000],
 
         ];
         //if the current batch is utbk, add the following rules
@@ -101,7 +101,7 @@ class StudentAkademikForm extends Model {
                 
                 [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5'], 
                     'integer', 'min' => 2, 'max' => 100],
-                [['nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4', 'nilai_pelajaran_5'], 'number', 'min' => 2, 'max' => 100],
+                [['nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4', 'nilai_pelajaran_5'], 'number', 'min' => 2, 'max' => 10000],
                 
                 [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'required'],
                 [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'number', 'min' => 10, 'max' => 100],

@@ -159,10 +159,12 @@ $title  = 'Data Diri Mahasiswa';
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri,'kelurahan',
-        ['template' => '{label}<div class="input-group">{input}</div>',
-        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <i class="bi bi-stack text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Kelurahan')->textInput(['placeholder'=>'Contoh: Karet Semanggi']); 
+    <?php 
+        echo $form->field($model_student_data_diri,'kelurahan', [
+        'template' => '{label}<div class="input-group">{input}</div>',
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text"><i class="bi bi-stack text-primary" style="font-size: 1rem;"></i></span>{input}</div>',
+        'labelOptions' => [ 'style' => 'white-space: nowrap' ]
+        ])->label('Kelurahan/ Desa')->textInput(['placeholder'=>'Contoh: Karet Semanggi']); 
     ?>
     </div>
     <div class="col-12 col-md">
@@ -306,25 +308,25 @@ if(!StudentMajorForm::isFilledMajor()) {
         </label>
         <?= $form->field($model_student_major, 'jurusan_main')
             ->dropDownList(StudentMajorForm::getMajorList(),
-            ['prompt' => 'Pilih Jurusan Utama']
+            ['prompt' => 'Pilihan 1']
         )->label(false) ?>
     </div>
     <div class="mb-3">
         <label for="optionalMajorSelect" class="form-label">
-            <i class="bi bi-book-half me-2 text-primary"></i>Pilih Jurusan Opsional I
+            <i class="bi bi-book-half me-2 text-primary"></i>Pilihan 2
         </label>
         <?= $form->field($model_student_major, 'jurusan_opsional')
             ->dropDownList(StudentMajorForm::getMajorList(),
-            ['prompt' => 'Pilih Jurusan Opsional']
+            ['prompt' => 'Pilihan 2']
         )->label(false) ?>
     </div>
     <div class="mb-3">
         <label for="optionalMajorSelect" class="form-label">
-            <i class="bi bi-bookmark-heart me-2 text-primary"></i>Pilih Jurusan Opsional II
+            <i class="bi bi-bookmark-heart me-2 text-primary"></i>Pilihan 3
         </label>
         <?= $form->field($model_student_major, 'jurusan_opsional2')
             ->dropDownList(StudentMajorForm::getMajorList(),
-            ['prompt' => 'Pilih Jurusan Opsional']
+            ['prompt' => 'Pilihan 3']
         )->label(false) ?>
     </div>
     <hr> <!-- Horizontal rule -->

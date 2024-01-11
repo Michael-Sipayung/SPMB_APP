@@ -464,12 +464,19 @@ class StudentController extends Controller // StudentController extends the Cont
         try{
             return $this->render('student-announcement',['model'=>$model]);
         }catch(\Exception $e){
-            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
-            return $this->redirect(['student/error']);
+            //Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            //return $this->redirect(['student/error']);
+            //try to refresh the page, and then if still fail redirect to index
+            try{
+                return $this->refresh();
+            }catch(\Exception $e){
+                return $this->redirect(['student/index']);
+            }
+            //return $this->redirect(['student/index']);
         }
     }
     //experimental test fetch data from my own api, case my public api
-    public function actionShowDataApi($username,$password)
+    /*public function actionShowDataApi($username,$password)
     {
         $client = new \yii\httpclient\Client();
     
@@ -497,6 +504,6 @@ class StudentController extends Controller // StudentController extends the Cont
         }
     
         return $this->render('show-data-api'); //render the data
-    }
+    }*/
 }
 ?>

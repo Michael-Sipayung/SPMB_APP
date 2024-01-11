@@ -147,12 +147,18 @@ $data  =  [
     ->label("Sumber Informasi SPMB");
 ?>
 <?php
-    echo $form->field($model, 'motivasi',
+    /*echo $form->field($model, 'motivasi',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-lightbulb-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->dropDownList(\app\models\StudentInformasiForm::get_motivasi(), ['prompt' => 'Pilih Motivasi Kuliah di IT Del'])
-    ->label("Motivasi Kuliah di IT Del");
+    ->label("Motivasi Kuliah di IT Del");*/
 ?>
+    <?php 
+        echo $form->field($model,'motivasi', [
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text"><i class="bi bi-stack text-primary" style="font-size: 1rem;"></i></span>{input}</div>',
+        'labelOptions' => [ 'style' => 'white-space: nowrap' ]
+        ])->label('Motivasi Kuliah')->textInput(['placeholder'=>'Contoh: Berkarir di bidang IT']); 
+    ?>
 
 <?php
 //*$form->field($model, 'agree')->checkbox(['label' => 'Saya menyatakan bahwa saya telah memberikan data yang valid.']) 
