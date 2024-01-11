@@ -62,6 +62,11 @@
     background-color: #007bff;
     border-color: #007bff;
 }
+.ui-autocomplete {
+    max-height: 200px; /* Adjust as needed */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 </style>
 </html>
 <?php
@@ -114,7 +119,7 @@ use yii\web\JsExpression;
                 'minLength' => '3',
             ],
             'options' => [
-                'class' => 'form-control rounded-end',
+                'class' => 'form-control rounded-end scrollable-dropdown',
                 'placeholder' => 'Cari Sekolah (SMA/ SMK) ...', 'value' => StudentAkademikForm::fetchAsalSekolah(),
             ],])->label('Asal Sekolah') 
         ?>

@@ -129,7 +129,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
         echo $form->field($model_student_extra, 'predikat_kegiatan_1',
         ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
+        ->dropDownList(\app\models\StudentExtraForm::predikat(), ['prompt' => 'Predikat']);
         ?>
     </div>
 </div>
@@ -183,7 +183,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
     echo $form->field($model_student_extra, 'predikat_kegiatan_2',
         ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-easel2-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
+        ->dropDownList(\app\models\StudentExtraForm::predikat(), ['prompt' => 'Predikat']);
 ?>
     </div>
 </div>
@@ -235,7 +235,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
         echo $form->field($model_student_extra, 'predikat_kegiatan_3',
         ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-megaphone-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
+        ->dropDownList(\app\models\StudentExtraForm::predikat(), ['prompt' => 'Predikat']);
     ?>
     </div>
 </div>
@@ -286,7 +286,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
         echo $form->field($model_student_extra, 'predikat_kegiatan_4',
         ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-mortarboard-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
+        ->dropDownList(\app\models\StudentExtraForm::predikat(), ['prompt' => 'Predikat']);
     ?>
     </div>
 </div>

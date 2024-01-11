@@ -72,7 +72,7 @@ class StudentAkademikForm extends Model {
             [['akreditasi_sekolah'], 'string', 'max' => 2],
             [['akreditasi_sekolah'], 'in', 'range' => self::$acreditation],
             [['jumlah_pelajaran_un'], 'integer', 'min' => 2, 'max' => 100],
-            ['jumlah_nilai_un', 'number', 'min' => 2, 'max' => 100],
+            ['jumlah_nilai_un', 'number', 'min' => 2, 'max' => 10000],
 
         ];
         //if the current batch is utbk, add the following rules
@@ -101,7 +101,7 @@ class StudentAkademikForm extends Model {
                 
                 [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5'], 
                     'integer', 'min' => 2, 'max' => 100],
-                [['nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4', 'nilai_pelajaran_5'], 'number', 'min' => 2, 'max' => 100],
+                [['nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4', 'nilai_pelajaran_5'], 'number', 'min' => 2, 'max' => 10000],
                 
                 [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'required'],
                 [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'number', 'min' => 10, 'max' => 100],
@@ -115,14 +115,28 @@ class StudentAkademikForm extends Model {
                 [['fisika_1', 'fisika_2', 'fisika_3', 'fisika_4', 'fisika_5'], 'required'],
                 [['fisika_1', 'fisika_2', 'fisika_3', 'fisika_4', 'fisika_5'], 'number', 'min' => 10, 'max' => 100],
                 
-                [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
-                [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"], //possible to be refactored, join with the common rules
+                //[['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
+                //[['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"], //possible to be refactored, join with the common rules
                 [['file_sertifikat_pmdk', 'file_rapor_pmdk', 'file_rekomendasi_pmdk'], 'safe'],
                 
             ]);
+            //ensure the file not already uploaded, case pmdk, it can be generalized
+            if(self::isFileNotUploaded()){
+                $rules[] = [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'];
+                $rules[] = [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"];
+            }
         }
         //add other rules for other batch: todo
         return $rules;
+    }
+    //isFileNotUploaded : function for ensure the file not already uploaded, case pmdk, it can be generalized
+    private function isFileNotUploaded(){
+        $sql = "SELECT file_rekomendasi FROM t_pendaftar WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        if($data == null){
+            return true;
+        }
+        return false;
     }
     //list of availabe program study, generate it without database
     //possible value for program study, may be added later
@@ -144,9 +158,9 @@ class StudentAkademikForm extends Model {
     //since we use the behavior of actionAutocomplete(), we must find the id_dapodik from the school name from the 
     //given parameter $sekolah that inputed by user
     public function getSekolahDapodikId($sekolah){
-        $sql = "SELECT npsn FROM t_r_sekolah_dapodik WHERE sekolah = '$sekolah'";
+        $sql = "SELECT id FROM t_r_sekolah_dapodik WHERE sekolah = '$sekolah'";
         $data = Yii::$app->db->createCommand($sql)->queryOne();
-        return $data['npsn'];
+        return $data['id'];
     }
     //auxiliary function to insert data sekolah to table t_pendaftar
     public function tempDataSekolah(){
@@ -158,14 +172,16 @@ class StudentAkademikForm extends Model {
             'jumlah_nilai_un'=>$this->jumlah_nilai_un,
         ],['user_id'=>StudentDataDiriForm::getCurrentUserId()])->execute();
     }
-    //auxiliary function to update data nilai akademik to table t_nilai_rapor, condition getCurrenPendafarId()
+    //auxiliary function to update data nilai akademik to table t_nilai_rapor, 
+    //condition getCurrenPendafarId()
     public function tempDataNilaiAkademik(){
         Yii::$app->db->createCommand()->update('t_nilai_rapor',[
             'smt'=>$this->jumlah_pelajaran,
             'nilai'=>$this->nilai_semester,
         ],['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
     }
-    //auxilary function to insert pendaftar_id to table t_nilai_rapor, worst case: first data is t_nili_rapor
+    //auxilary function to insert pendaftar_id to table t_nilai_rapor,
+    //worst case: first data is t_nili_rapor
     public function tempPendaftarIdNilaiAkademik(){ //good for research, new implementation
         Yii::$app->db->createCommand()->insert('t_nilai_rapor',
         [
@@ -357,7 +373,7 @@ class StudentAkademikForm extends Model {
     public static function fetchAsalSekolah(){
         $sql = "SELECT sekolah_dapodik_id FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
-        $sql = "SELECT sekolah FROM t_r_sekolah_dapodik WHERE npsn = '$data'";
+        $sql = "SELECT sekolah FROM t_r_sekolah_dapodik WHERE id = '$data'";
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
         return $data;
     }
@@ -691,6 +707,11 @@ class StudentAkademikForm extends Model {
         'file_nilai_rapor' => 'file_rapor_pmdk',
         'file_sertifikat' => 'file_sertifikat_pmdk',
         'file_rekomendasi' => 'file_rekomendasi_pmdk',
+        'jumlah_pelajaran_un' => 'jumlah_pelajaran_un',
+        'jumlah_nilai_un' => 'jumlah_nilai_un',
+        
+        'jurusan_sekolah_id' => 'jurusan_sekolah',
+        'akreditasi_sekolah' => 'akreditasi_sekolah',
         // Add more if needed
     ];
 

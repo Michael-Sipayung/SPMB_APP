@@ -85,7 +85,7 @@ $title  = 'Data Diri Mahasiswa';
         'template' => "{label}\n<div class=\"col-lg-8\">{input}</div>\n<div class=\"col-lg-3\">{error}</div>",
         'labelOptions' => ['class' => 'col-lg-3 control-label']
     ])
-    ->dropDownList(\app\models\StudentDataDiriForm::$relegion, ['prompt' => 'Pilih Agama'])
+    ->dropDownList(\app\models\StudentDataDiriForm::relegion(), ['prompt' => 'Pilih Agama'])
     ->label("Agama");
     ?>
     </div>
@@ -143,10 +143,12 @@ $title  = 'Data Diri Mahasiswa';
 </div>
 <div class="row">
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri, 'jenis_kelamin',
+    <?php echo $form->field($model_student_data_diri, 'jenis_kelamin_id',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <i class="bi bi-tags-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->dropDownList(\app\models\StudentDataDiriForm::$gen, ['prompt' => 'Pilih Jenis Kelamin']);
+        <i class="bi bi-tags-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->label("Jenis Kelamin")
+        ->dropDownList(\app\models\StudentDataDiriForm::gen(), ['prompt' => 'Pilih Jenis Kelamin']);
     ?>
     </div>
     <div class="col-12 col-md">
@@ -157,10 +159,12 @@ $title  = 'Data Diri Mahasiswa';
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri,'kelurahan',
-        ['template' => '{label}<div class="input-group">{input}</div>',
-        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <i class="bi bi-stack text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Kelurahan')->textInput(['placeholder'=>'Contoh: Karet Semanggi']); 
+    <?php 
+        echo $form->field($model_student_data_diri,'kelurahan', [
+        'template' => '{label}<div class="input-group">{input}</div>',
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text"><i class="bi bi-stack text-primary" style="font-size: 1rem;"></i></span>{input}</div>',
+        'labelOptions' => [ 'style' => 'white-space: nowrap' ]
+        ])->label('Kelurahan/ Desa')->textInput(['placeholder'=>'Contoh: Karet Semanggi']); 
     ?>
     </div>
     <div class="col-12 col-md">
@@ -173,12 +177,14 @@ $title  = 'Data Diri Mahasiswa';
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri, 'provinsi',
+    <?php echo $form->field($model_student_data_diri, 'alamat_prov',
         ['template' => '{label}<div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-signpost-2-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->label("Provinsi")
         ->dropDownList(\app\models\StudentAddress::getProvince(), 
-        ['prompt' => 'Pilih Provinsi','id' => 'province-dropdown', 'onchange' => 'this.form.submit();']);
+        ['prompt' => 'Pilih Provinsi',
+        'id' => 'province-dropdown', 'onchange' => 'this.form.submit();']);
         //bug fixes for generating provinsi and populate kabupaten, onchange event is used to submit form
         ?>
     </div>
@@ -187,22 +193,23 @@ $title  = 'Data Diri Mahasiswa';
 <div class="row">
     <div class="col-12 col-md">
     <?php
-        echo $form->field($model_student_data_diri, 'kabupaten',
+        echo $form->field($model_student_data_diri, 'alamat_kab',
         [
         'template' => '{label}<div class="input-group">{input}</div>',    
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-map-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentAddress::getKabupaten($model_student_data_diri->provinsi), 
+        ->label('Kabupaten')
+        ->dropDownList(\app\models\StudentAddress::getKabupaten($model_student_data_diri->alamat_prov), 
         ['prompt' => 'Pilih Kabupaten', 'id' => 'kabupaten-dropdown', 'onchange' => 'this.form.submit();']);
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri,'alamat_kecamatan',
+    <?php echo $form->field($model_student_data_diri,'alamat_kec',
         [
         'template' => '{label}<div class="input-group">{input}</div>',    
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-signpost-2-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentAddress::getKecamatan($model_student_data_diri->kabupaten), 
+        ->dropDownList(\app\models\StudentAddress::getKecamatan($model_student_data_diri->alamat_kab), 
         ['prompt' => 'Pilih Kecamatan'/*, 'id' => 'kecamatan-dropdown', 'onchange' => 'this.form.submit();'*/])
         ->label("Kecamatan");
     ?>
@@ -217,13 +224,23 @@ $title  = 'Data Diri Mahasiswa';
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_diri,'no_telepon_rumah',
-        [   'template' => '{label}<div class="input-group">{input}</div>',
-            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-            <i class="bi bi-telephone-inbound-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->label('Telepon')
-        ->textInput(['placeholder'=>'Contoh: 62 21 80643104']); 
+    <?php echo $form->field($model_student_data_diri,'kab_domisili',
+        [
+        'template' => '{label}<div class="input-group">{input}</div>',    
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-house-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->dropDownList(StudentDataDiriForm::studentDomisili(), 
+        ['prompt' => 'Pilih Kab. Domisili'/*, 'id' => 'kecamatan-dropdown', 'onchange' => 'this.form.submit();'*/])
+        ->label("Domisili");
     ?>
+        <?php 
+            /*echo $form->field($model_student_data_diri,'kab_domisili',
+            [   'template' => '{label}<div class="input-group">{input}</div>',
+                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+                <i class="bi bi-house-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])        
+                ->label('Kab. Domisili', ['style' => 'white-space: nowrap;'])->textInput(['placeholder'=>'Contoh: Jakarta']);
+            */
+        ?>
     </div>
     <div class="col-12 col-md">        
     <?php echo $form->field($model_student_data_diri,'no_telepon_mobile',
@@ -291,25 +308,25 @@ if(!StudentMajorForm::isFilledMajor()) {
         </label>
         <?= $form->field($model_student_major, 'jurusan_main')
             ->dropDownList(StudentMajorForm::getMajorList(),
-            ['prompt' => 'Pilih Jurusan Utama']
+            ['prompt' => 'Pilihan 1']
         )->label(false) ?>
     </div>
     <div class="mb-3">
         <label for="optionalMajorSelect" class="form-label">
-            <i class="bi bi-book-half me-2 text-primary"></i>Pilih Jurusan Opsional I
+            <i class="bi bi-book-half me-2 text-primary"></i>Pilihan 2
         </label>
         <?= $form->field($model_student_major, 'jurusan_opsional')
             ->dropDownList(StudentMajorForm::getMajorList(),
-            ['prompt' => 'Pilih Jurusan Opsional']
+            ['prompt' => 'Pilihan 2']
         )->label(false) ?>
     </div>
     <div class="mb-3">
         <label for="optionalMajorSelect" class="form-label">
-            <i class="bi bi-bookmark-heart me-2 text-primary"></i>Pilih Jurusan Opsional II
+            <i class="bi bi-bookmark-heart me-2 text-primary"></i>Pilihan 3
         </label>
         <?= $form->field($model_student_major, 'jurusan_opsional2')
             ->dropDownList(StudentMajorForm::getMajorList(),
-            ['prompt' => 'Pilih Jurusan Opsional']
+            ['prompt' => 'Pilihan 3']
         )->label(false) ?>
     </div>
     <hr> <!-- Horizontal rule -->

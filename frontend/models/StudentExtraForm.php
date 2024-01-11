@@ -69,7 +69,12 @@ class StudentExtraForm extends Model {
         '4'=>'Lulus',
         '5'=>'Tidak Lulus',
     ];
-
+    //static function to populate predikat data 
+    public static function predikat(){
+        $sql  = "SELECT predikat_kelulusan_id,`desc` FROM t_r_predikat_kelulusan";
+        //fetch data as key value pair and shot as dropdown
+        return Yii::$app->db->createCommand($sql)->queryAll(\PDO::FETCH_KEY_PAIR);
+    } 
     public function rules(): array
     {
         //return rules for validation

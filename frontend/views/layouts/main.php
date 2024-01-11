@@ -162,10 +162,10 @@ NavBar::end();
             <div class="col-md-3">
                 <h5>SPMB App - IT Del</h5>
                 <ul class="list-unstyled text-white"> <!-- changed to white -->
-                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Product</a></li> <!-- changed to white -->
-                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Features</a></li> <!-- changed to white -->
-                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Enterprise</a></li> <!-- changed to white -->
-                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Support</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://www.del.ac.id/">Product</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://www.del.ac.id/">Features</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://www.del.ac.id/">Enterprise</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://www.del.ac.id/">Support</a></li> <!-- changed to white -->
                 </ul>
             </div>
             <div class="col-md-3">
@@ -180,19 +180,19 @@ NavBar::end();
             <div class="col-md-3">
                 <h5>About</h5>
                 <ul class="list-unstyled text-white"> <!-- changed to white -->
-                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Team</a></li> <!-- changed to white -->
-                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Locations</a></li> <!-- changed to white -->
-                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Privacy</a></li> <!-- changed to white -->
-                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Terms</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://www.del.ac.id/">Team</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://www.del.ac.id/">Locations</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://www.del.ac.id/">Privacy</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://www.del.ac.id/">Terms</a></li> <!-- changed to white -->
                 </ul>
             </div>
             <div class="col-md-3 text-center text-md-end">
-                <h5>&copy <?= date('Y')?> Michael Sipayung</h5>
+                <h5>&copy <?= date('Y')?> SPMB App - IT Del</h5>
                 <div>
-                    <a href="https://github.com/MichaelSipayung"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://github.com/MichaelSipayung"><i class="fab fa-twitter"></i></a>
-                    <a href="https://github.com/MichaelSipayung"><i class="fab fa-instagram"></i></a>
-                    <a href="https://github.com/MichaelSipayung"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.del.ac.id/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.del.ac.id/"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.del.ac.id/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.del.ac.id/"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div> 
         </div>
