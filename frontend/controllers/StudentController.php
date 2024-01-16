@@ -466,13 +466,9 @@ class StudentController extends Controller // StudentController extends the Cont
         }catch(\Exception $e){
             //Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
             //return $this->redirect(['student/error']);
-            //try to refresh the page, and then if still fail redirect to index
-            try{
-                return $this->refresh();
-            }catch(\Exception $e){
-                return $this->redirect(['student/index']);
-            }
-            //return $this->redirect(['student/index']);
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.'
+                .$e->getMessage());
+            return $this->redirect(['student/index']);
         }
     }
     //experimental test fetch data from my own api, case my public api

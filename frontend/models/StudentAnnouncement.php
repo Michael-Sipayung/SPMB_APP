@@ -93,10 +93,23 @@ class StudentAnnouncement extends Model{
     }
     //populate the data from database, case student username
     public static function identityUsername(){
+        if(self::isAdministrationPass()){
+            $sql = "SELECT username FROM t_kode_ujian WHERE kode_ujian_id = :kode_ujian_id";
+            $params = [':kode_ujian_id' => self::kodeUjianId()];
+            $result = Yii::$app->db->createCommand($sql)->bindValues($params)->queryOne();
+            return $result['username'];
+        }
         return "N/A";
     }
+    
     //populate the data from database, case student password
     public static function identityPassword(){
+        if(self::isAdministrationPass()){
+            $sql = "SELECT password FROM t_kode_ujian WHERE kode_ujian_id = :kode_ujian_id";
+            $params = [':kode_ujian_id' => self::kodeUjianId()];
+            $result = Yii::$app->db->createCommand($sql)->bindValues($params)->queryOne();
+            return $result['password'];
+        }
         return "N/A";
     }
     //populate the data from database, case student other information
@@ -106,6 +119,19 @@ class StudentAnnouncement extends Model{
     //populate the data from database, case no peserta
     public static function identityPeserta(){
         return "N/A";
+    }
+    //private function, helper: check current administration status
+    private static function isAdministrationPass(){
+        $sql = "SELECT status_adminstrasi_id FROM t_pendaftar WHERE pendaftar_id = :pendaftar_id";
+        $params = [':pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId()];
+        $result = Yii::$app->db->createCommand($sql)->bindValues($params)->queryOne();
+        return $result;
+    }
+    private static function kodeUjianId(){
+        $sql = "SELECT kode_ujian_id FROM t_pendaftar WHERE pendaftar_id = :pendaftar_id";
+        $params = [':pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId()];
+        $result = Yii::$app->db->createCommand($sql)->bindValues($params)->queryOne();
+        return $result['kode_ujian_id'];
     }
 
 }
