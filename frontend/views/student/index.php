@@ -143,7 +143,7 @@ use yii\helpers\Html;
 use yii\bootstrap5\Modal;
 
 $this->title = 'SPMB App-IT Del';
-$this->registerJs('$(document).ready(function(){$("#developmentModal").modal("show");});');
+//$this->registerJs('$(document).ready(function(){$("#developmentModal").modal("show");});');
 
 ?>
 <div class="site-index">
@@ -209,6 +209,11 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </div>
 </div>
 </div> 
+<br>
+<br>
+<div class="position-relative overflow-hidden" style="height: 65vh;">
+    <div class="position-absolute w-100 h-100" style="background: url('https://coderassetmiller.s3.amazonaws.com/pmb+new+asset/download+(1)+(1)+(1)+(1).png') no-repeat center center / cover;"></div>
+</div>
 <br>
 <div class="regpro">
     <h2 class="text-center mb-4">Alur Pendaftaran Mahasiswa Baru</h2>
@@ -282,7 +287,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100 bg-primary text-white">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-users"></i> Pendaftar SPMB</h5>
-                    <p class="card-text">Total mahasiswa yang telah mendaftar di IT Del : 10000</p>
+                    <p class="card-text">Total mahasiswa yang telah mendaftar di IT Del : 7000</p>
                 </div>
             </div>
         </div>
@@ -290,7 +295,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100 bg-success text-white">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-user-plus"></i> Mahasiswa Aktif</h5>
-                    <p class="card-text">Jumlah mahasiswa aktif yang telah terdaftar di IT Del : 8000</p>
+                    <p class="card-text">Jumlah mahasiswa aktif yang telah terdaftar di IT Del : 1500</p>
                 </div>
             </div>
         </div>
@@ -298,7 +303,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100 bg-info text-white">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-graduation-cap"></i> Alumni</h5>
-                    <p class="card-text">Jumlah mahasiswa yang telah menyelesaikan studi di IT Del : 800</p>
+                    <p class="card-text">Mahasiswa yang telah menyelesaikan studi : 4500</p>
                 </div>
             </div>
         </div>
@@ -306,7 +311,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100 bg-success text-white">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-award"></i> Penerima Beasiswa</h5>
-                    <p class="card-text">Jumlah mahasiswa penerima beasiswa di IT Del : 500</p>
+                    <p class="card-text">Jumlah mahasiswa penerima beasiswa di IT Del : 1000</p>
                 </div>
             </div>
         </div>
@@ -321,8 +326,8 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100">
                 <img src="https://coderassetmiller.s3.amazonaws.com/1.jpg" class="card-img-top" alt="Image 1">
                 <div class="card-body">
-                    <h5 class="card-title">Title 1</h5>
-                    <p class="card-text">This is a description of the first image.</p>
+                    <h5 class="card-title">Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Pengukuhan dilaksanakan dalan sidang terbuka, oleh rektor IT Del.</p>
                 </div>
             </div>
         </div>
@@ -330,8 +335,8 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100">
                 <img src="https://coderassetmiller.s3.amazonaws.com/2.jpg" class="card-img-top" alt="Image 2">
                 <div class="card-body">
-                    <h5 class="card-title">Title 2</h5>
-                    <p class="card-text">This is a description of the second image.</p>
+                    <h5 class="card-title">Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Pengukuhan dilaksanakan dalan sidang terbuka, oleh rektor IT Del.</p>
                 </div>
             </div>
         </div>
@@ -339,12 +344,42 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
             <div class="card h-100">
                 <img src="https://coderassetmiller.s3.amazonaws.com/3.jpg" class="card-img-top" alt="Image 2">
                 <div class="card-body">
-                    <h5 class="card-title">Title 3</h5>
-                    <p class="card-text">This is a description of the third image.</p>
+                    <h5 class="card-title">Seleksi Ujian Saringan Masuk</h5>
+                    <p class="card-text">Setiap peserta akan mengikuti kegiatan proses seleksi ujian saringan masuk.</p>
                 </div>
             </div>
         </div>
-        <!-- Add more cards as needed -->
+    </div>
+    <!-- next image galery -->
+    <br>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://coderassetmiller.s3.amazonaws.com/pmb+new+asset/9vxxpf7xe85cVOfyllGPEgZwCPqmHOW9.jpg" class="card-img-top" alt="Image 1">
+                <div class="card-body">
+                    <h5 class="card-title">Upacara Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Setelah Calon Mahasiswa Mengikuti Proses Seleksi Masuk Institut Teknologi Del (IT Del), mereka akan dikukuhkan.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://coderassetmiller.s3.amazonaws.com/pmb+new+asset/fA_SbNfrhQvoLDg3gLvcrv7zUznbY1S3.jpg" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                    <h5 class="card-title">Upacara Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Setelah Calon Mahasiswa Mengikuti Proses Seleksi Masuk Institut Teknologi Del (IT Del), mereka akan dikukuhkan.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://coderassetmiller.s3.amazonaws.com/pmb+new+asset/HXqZGFT_48F_gSumeE1_D_EuFWLzQnrP.jpg" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                    <h5 class="card-title">Upacara Pengukuhan Mahasiswa Baru</h5>
+                    <p class="card-text">Setelah Calon Mahasiswa Mengikuti Proses Seleksi Masuk Institut Teknologi Del (IT Del), mereka akan dikukuhkan.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </div>
@@ -372,18 +407,129 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
         </ul>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-registration" role="tabpanel" aria-labelledby="pills-registration-tab">
-            <h4>Registration Begins: January 1, 2023</h4>
-            <p>Registration for the new semester begins. Make sure to sign up early to secure your spot!</p>
-            <h4>Registration Ends: February 28, 2023</h4>
-            <p>Last day to register for the new semester. Don't miss out!</p>
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title"><i class="bi bi-calendar-check-fill"></i> PMDK (Penelusuran Minat dan Kemampuan)</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Bagi siswa yang tertarik untuk mendaftar melalui jalur PMDK, pendaftaran dibuka secara resmi pada tanggal
+                        22 Desember 2024 - 14 Januari 2024. Jika terdapat perubahan akan disampaikan secara resmi melalui portal SPMB IT Del.
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title"><i class="bi bi-calendar2-check-fill"></i> USM I (Ujian Saringan Masuk)</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Bagi siswa yang tertarik untuk mendaftar melalui jalur USM I, pendaftaran dibuka secara resmi pada tanggal
+                        10 Januari 2024 - 07 Maret 2024. Jika terdapat perubahan akan disampaikan secara resmi melalui portal SPMB IT Del.
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title"><i class="bi bi-calendar2-check-fill"></i> USM II (Ujian Saringan Masuk)</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Bagi siswa yang tertarik untuk mendaftar melalui jalur USM II, pendaftaran dibuka secara resmi pada tanggal
+                        18 Maret 2024 - 08 Mei 2024. Jika terdapat perubahan akan disampaikan secara resmi melalui portal SPMB IT Del.
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title"><i class="bi bi-calendar2-check-fill"></i> USM III (Ujian Saringan Masuk)</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Bagi siswa yang tertarik untuk mendaftar melalui jalur USM III, pendaftaran dibuka secara resmi pada tanggal
+                        10 Mei 2024 - 06 Juni 2024. Jika terdapat perubahan akan disampaikan secara resmi melalui portal SPMB IT Del.
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title"><i class="bi bi-calendar2-event-fill"></i> UTBK (Ujian Tulis Berbasis Komputer)</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Bagi siswa yang tertarik untuk mendaftar melalui jalur UTBK, pendaftaran dibuka secara resmi pada tanggal
+                        10 Juni 2024 - 04 Juli 2024. Jika terdapat perubahan akan disampaikan secara resmi melalui portal SPMB IT Del.
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="pills-exam" role="tabpanel" aria-labelledby="pills-exam-tab">
-            <h4>Exam Type: Final Exam</h4>
-            <p>The final exam will be held at the end of the semester. Study hard!</p>
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title"><i class="bi bi-file-earmark-text-fill"></i> PMDK (Penelusuran Minat dan Kemampuan)</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Bagi calon mahasiswa yang mendaftar pada jalur PMDK, komponen penilaian ditentukan berdasarkan nilai rapor,
+                        nilai wawancara serta nilai pisikotes.
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title"><i class="bi bi-file-earmark-richtext-fill"></i> USM (Ujian Saringan Masuk)</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Bagi calon mahasiswa yang mendaftar pada jalur USM, komponen penilaian ditentukan berdasarkan nilai akademik,
+                        serta nilai pisikotes.
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title"><i class="bi bi-file-earmark-fill"></i> UTBK (Ujian Tulis Berbasis Komputer)</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Bagi calon mahasiswa yang mendaftar pada jalur UTBK, komponen penilaian ditentukan berdasarkan nilai UTBK,
+                        serta nilai pisikotes.
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="pills-location" role="tabpanel" aria-labelledby="pills-location-tab">
-            <h4>Location: Main Campus</h4>
-            <p>All exams will be held at the main campus. Please arrive early to find your exam room.</p>
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title"><i class="bi bi-geo-fill"></i> Lokasi I : Kampus IT Del</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Setiap peserta ujian yang mendapatkan jadwal ujian dengan lokasi Kampus IT Del, 
+                        diharapkan untuk datang tepat waktu dan membawa berkas yang telah ditentukan. 
+                        Alamat : Jl. Sisingamangaraja, Sitoluama Laguboti, Toba Samosir Sumatera Utara.
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title"><i class="bi bi-geo-fill"></i> Lokasi II : Medan</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Setiap peserta ujian yang mendapatkan jadwal ujian dengan lokasi Medan, Sumatera Utara, 
+                        diharapkan untuk datang tepat waktu dan membawa berkas yang telah ditentukan. 
+                        Alamat : Kampus Universitas HKBP Nommensen (Medan), Jl Perintis Kemerdekaan No.23, Perintis, Medan.
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title"><i class="bi bi-geo-fill"></i> Lokasi III : Jakarta</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Setiap peserta ujian yang mendapatkan jadwal ujian dengan lokasi Jakarta, 
+                        diharapkan untuk datang tepat waktu dan membawa berkas yang telah ditentukan. 
+                        Alamat : Sopo Del Office Towers & Lifestyle Tower A Lt. 9, Jl. Mega Kuningan Barat III Lot 10.1-6, 
+                        Jakarta Selatan 12950.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -400,7 +546,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+    <div class="accordion-body">Setiap peserta diijinkan mendaftar lebih dari satu jurusan, maksimal jurusan yang dapat dipilih adalah sebanyak tiga jurusan.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -410,7 +556,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+    <div class="accordion-body">Silahkan mengunjungi portal resmi pendaftaran mahasiswa baru IT Del. Klik menu buat akun pada portal tersebut kemudian login dengan akun yang telah anda buat.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -420,7 +566,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+    <div class="accordion-body">Kode verifikasi dikirimkan secara otomatis melalui sistem, silahkan cek email anda secara berkala atau bertahap dan pastikan email yang anda berikan adalah benar.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -430,7 +576,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the fourth item's accordion body.</div>
+    <div class="accordion-body">IT Del menyediakan beberapa program studi, diantaranya : manajemen rekayasa, teknik elektro, teknik informatika, teknik bioproses dan beberapa jurusan lainnya.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -440,7 +586,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the fifth item's accordion body.</div>
+    <div class="accordion-body">Silahkan membuka portal SPMB IT Del dan kemudikan memilih menu lupa password, isikan username dan hp anda. Password baru anda akan dikirimkan melalui email, gunakan identitas tersebut untuk login pada portal SPMB.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -450,7 +596,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the sixth item's accordion body.</div>
+    <div class="accordion-body">Setiap peserta diharapkan telah menyediakan pas photo, file sertifikat, file nilai rapor serta berkas pendukung lainnya.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -460,7 +606,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the seventh item's accordion body.</div>
+    <div class="accordion-body">Silahkan periksa email anda, username tersebut dapat ditemukan ketika anda mendaftarkan akun ataupun ketika anda melakukan reset password.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -470,7 +616,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the eighth item's accordion body.</div>
+    <div class="accordion-body">Salah satu faktor mengapa file anda tidak dapat diupload adalah dikarenakan file tersebut terlalu besar, atau ukuran file yang anda berikan tidak memenuhi batas maximal yang telah kami tentukan.</div>
     </div>
 </div>
 <div class="accordion-item">
@@ -480,7 +626,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </button>
     </h2>
     <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
-    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the ninth item's accordion body.</div>
+    <div class="accordion-body">Setiap peserta wajib melakukan pendaftaran ulang dan informasi lebih lanjut mengenai pendaftaran ulang akan disampaikan melalui portal SPMB IT Del.</div>
     </div>  
 </div>
 </div>
@@ -527,25 +673,25 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
 
 </div>
 <!-- develoment status -->
-<?php Modal::begin([
+<?php /*Modal::begin([
     'title' => '<h2 class="text-center">Under Development</h2>',
     'id' => 'developmentModal',
     'options' => ['class' => 'fade modal-dialog-centered'],
-]); ?>
-<div class="modal-body">
+]); */?>
+<!-- <div class="modal-body">
     <p class="text-center">This application is still under development and may contain bugs. We are working hard to improve it. Thank you for your patience and understanding.</p>
 </div>
 <div class="text-center mt-3">
     <small>Developed by <strong>Michael Sipayung</strong></small>
 </div>
-<?php Modal::end(); ?>
+<?php //Modal::end(); ?> -->
 </body>
 </html>
     <!-- ChatWith.io WhatsApp chat widget code -->
 <script type="text/javascript">
         (function () {
             var options = {
-                whatsapp: "+62-822-7219-4708", // WhatsApp number
+                whatsapp: "+62-812-9383-0184", // WhatsApp number
                 call_to_action: "Message us", // Call to action
                 position: "right", // Position may be 'right' or 'left'
             };

@@ -10,19 +10,17 @@ class StudentMajorForm extends Model
     public $jurusan_opsional; //todo: add more optional major
     public $jurusan_opsional2;
     public $pas_foto; public $file_photo;
-    
     public function rules()
     {
         return [
             [['gelombang', 'jurusan_main'], 'required'],
-            [['jurusan_opsional', 'jurusan_opsional2'], 'safe'],
+            [['jurusan_opsional', 'jurusan_opsional2'], 'required'],
             ['jurusan_main', 'compare', 'compareAttribute' => 'jurusan_opsional', 'operator' => '!=', 
                 'message' => 'Jurusan utama dan jurusan opsional tidak boleh sama'],
             ['jurusan_main', 'compare', 'compareAttribute' => 'jurusan_opsional2', 'operator' => '!=', 
                 'message' => 'Jurusan utama dan jurusan opsional2 tidak boleh sama'],
             ['jurusan_opsional', 'compare', 'compareAttribute' => 'jurusan_opsional2', 'operator' => '!=', 
                 'message' => 'Jurusan opsional 1 dan jurusan opsional 2 tidak boleh sama'],
-        
             //rule for photo, must be image file
             [
                 'file_photo',
@@ -48,7 +46,10 @@ class StudentMajorForm extends Model
     //fetch the batch list from database, t_r_gelombang table
     public static function getBatchList()
     {
-        $sql = "SELECT gelombang_pendaftaran_id,`desc` FROM t_r_gelombang_pendaftaran";
+        //get current date y-m-d
+        $current_date = date('Y-m-d');
+        $sql = "SELECT mulai,berakhir,gelombang_pendaftaran_id,`desc` FROM t_r_gelombang_pendaftaran
+            where '$current_date' BETWEEN mulai AND berakhir";
         $result = Yii::$app->db->createCommand($sql)->queryAll();
         $list = \yii\helpers\ArrayHelper::map($result, 'gelombang_pendaftaran_id', 'desc');
         return $list;
@@ -62,9 +63,11 @@ class StudentMajorForm extends Model
                 $this->updateIndicator(); //update the indicator that the major is filled
                 self::insertMajorList(); //insert the major list
                 self::updatePasPhoto(); //update the pas photo
+                self::counterBatch($this->gelombang); //update the counter
                 return true;
             }catch(Exception $e){ //for debugging purpose, todo: need to be improved to handle error
-                echo $e->getMessage();
+                //flash message, failed to insert data
+                Yii::$app->session->setFlash('error', 'Gagal menyimpan data, silahkan coba lagi');
             }
         }
         return false;
@@ -118,6 +121,21 @@ class StudentMajorForm extends Model
         $sql = "UPDATE t_pendaftar SET pas_foto = :pas_foto WHERE pendaftar_id = :pendaftar_id";
         $params = [':pas_foto'=>$this->pas_foto,':pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()];
         Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+    }
+    //counterBatch : count total registered student
+    private static function counterBatch($choosen_batch){
+        $sql  = "SELECT counter from t_r_gelombang_pendaftaran where gelombang_pendaftaran_id = :gelombang_pendaftaran_id"; //get current counter
+        $param = [':gelombang_pendaftaran_id'=>$choosen_batch];
+        $result  = yii::$app->db->createCommand($sql,$param)->queryOne();
+        $curr  = $result['counter'];
+        //update no_pendaftaran, no_pendaftaran = counter +1, t_pendaftar
+        $sql = "UPDATE t_pendaftar SET no_pendaftaran = :no_pendaftaran WHERE pendaftar_id = :pendaftar_id";
+        $param = [':no_pendaftaran'=>$curr+1,':pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()];
+        yii::$app->db->createCommand($sql)->bindValues($param)->execute();
+        //update counter, counter+=1
+        $sql = "UPDATE t_r_gelombang_pendaftaran SET counter = :counter WHERE gelombang_pendaftaran_id = :gelombang_pendaftaran_id";
+        $param = [':counter'=>$curr+1,':gelombang_pendaftaran_id'=>$choosen_batch];
+        yii::$app->db->createCommand($sql)->bindValues($param)->execute();
     }
 }
 ?>

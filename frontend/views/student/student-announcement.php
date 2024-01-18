@@ -5,38 +5,43 @@
 </head>
 <body>
 <?php
+
+use app\models\Student;
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper; //for using array helper
+use app\models\StudentAnnouncement;
 $title  = 'Announcement Page';
 ?>
-<h1 style="text-align: center;" class="text-center my-5">Pengumuman SPMB IT Del - Currently Under Construction</h1>
+<h1 style="text-align: center;" class="text-center my-5">Pengumuman SPMB IT Del</h1>
 <?php
 $cards = [
     'Identitas Peserta PMB' => [
         'icon' => 'fas fa-user',
         'details' => [
-            'Nama' => 'fas fa-id-card',
-            'Gelombang pendaftaran' => 'fas fa-wave-square',
-            'Program studi pilihan utama' => 'fas fa-book',
-            'Program studi pilihan opsional' => 'fas fa-book-open'
+            'Nama' => ['icon' => 'fas fa-id-card', 'value' => StudentAnnouncement::identityName()],
+            'Gelombang' => ['icon' => 'fas fa-wave-square', 'value' => StudentAnnouncement::identityGelombang()],
+            'Pilihan Jurusan' => ['icon' => 'fas fa-book', 'value' => StudentAnnouncement::identityMajor1()],
+            'Pilihan Opsional' => ['icon' => 'fas fa-book-open', 'value' => StudentAnnouncement::identityMajor2(). "\n". 
+            StudentAnnouncement::identityMajor3()],
         ]
     ],
     'Status Pendaftaran Peserta' => [
         'icon' => 'fas fa-info-circle',
         'details' => [
-            'Status pendaftaran' => 'fas fa-check-circle',
-            'Tes selanjutnya' => 'fas fa-calendar-check',
-            'Jadwal pelaksanaan' => 'fas fa-clock',
-            'Tempat' => 'fas fa-map-marker-alt'
+            'Status pendaftaran' => ['icon' => 'fas fa-check-circle', 'value' => StudentAnnouncement::identityCurrentStatus()],
+            'Tes selanjutnya' => ['icon' => 'fas fa-calendar-check', 'value' => StudentAnnouncement::identityNextTest()],
+            'Jadwal pelaksanaan' => ['icon' => 'fas fa-clock', 'value' => StudentAnnouncement::identitySchedule()],
+            'Tempat' => ['icon' => 'fas fa-map-marker-alt', 'value' => StudentAnnouncement::identityLocation()]
         ]
     ],
     'Identitas Peserta Ujian' => [
         'icon' => 'fas fa-user-check',
         'details' => [
-            'Username' => 'fas fa-user',
-            'Password' => 'fas fa-key',
-            'Keterangan' => 'fas fa-exclamation-circle'
+            'No Peserta' => ['icon' => 'fas fa-id-card', 'value' => StudentAnnouncement::identityPeserta()],
+            'Username' => ['icon' => 'fas fa-user', 'value' => StudentAnnouncement::identityUsername()],
+            'Password' => ['icon' => 'fas fa-key', 'value' => StudentAnnouncement::identityPassword()],
+            'Keterangan' => ['icon' => 'fas fa-exclamation-circle', 'value' => StudentAnnouncement::identityOtherInformation()]
         ]
     ]
 ];
@@ -54,8 +59,9 @@ $cards = [
                     <table class="table">
                         <?php foreach ($card['details'] as $detail => $icon): ?>
                             <tr>
-                                <td><i class="<?= $icon ?>"></i> <?= $detail ?></td>
+                                <td><i class="<?= $icon['icon'] ?>"></i> <?= $detail ?></td>
                                 <td>:</td>
+                                <td><?= $icon['value'] ?></td> <!-- Display the value here -->
                             </tr>
                         <?php endforeach; ?>
                     </table>

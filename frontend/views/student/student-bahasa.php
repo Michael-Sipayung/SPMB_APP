@@ -52,24 +52,24 @@ $title  = 'Data Kemampuan Bahasa Asing';
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Data Kemampuan Bahasa Asing</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
 <?php
-    echo $form->field($model, 'english',
+    echo $form->field($model, 'kemampuan_bahasa_inggris',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-globe text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-    ->dropDownList(\app\models\StudentBahasaForm::$english_ability, ['prompt' => 'Pilih Kemampuan Bahasa Inggris'])
+    ->dropDownList(\app\models\StudentBahasaForm::english_ability(), ['prompt' => 'Pilih Kemampuan Bahasa Inggris'])
     ->label("Bahasa Inggris");
 ?>
 <?php
-    echo $form->field($model, 'non_english',
+    echo $form->field($model, 'bahasa_asing_lainnya',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-translate text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->dropDownList(\app\models\StudentBahasaForm::$non_english_list, ['prompt' => 'Pilih Bahasa Asing Lainnya'])
     ->label("Bahasa Asing Lainnya");
 ?>
 <?php
-    echo $form->field($model, 'non_english_ability',
+    echo $form->field($model, 'kemampuan_bahasa_asing_lainnya',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-translate text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-    ->dropDownList(\app\models\StudentBahasaForm::$english_ability, ['prompt' => 'Pilih Kemampuan Bahasa Asing Lainnya'])
+    ->dropDownList(\app\models\StudentBahasaForm::english_ability(), ['prompt' => 'Pilih Kemampuan Bahasa Asing Lainnya'])
     ->label(false);
 ?>
     <div class="form-group" style="display: flex; justify-content: flex-end;">

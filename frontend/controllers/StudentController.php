@@ -342,13 +342,24 @@ class StudentController extends Controller // StudentController extends the Cont
             }
         }
     }
-    //action for autocomplete for school name
-    public static function actionAutocomplete($term) {
+    //action for autocomplete for school name, for all school
+    /*public static function actionAutocomplete($term) {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $results = (new \yii\db\Query())
             ->select('sekolah')
             ->from('t_r_sekolah_dapodik')
             ->where(['like', 'sekolah', $term])
+            ->all();
+        return array_column($results, 'sekolah');
+    }*/
+    //refactoring for sekolah pmdk
+    public static function actionAutocomplete($term) {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $results = (new \yii\db\Query())
+            ->select('a.sekolah')
+            ->from('t_r_sekolah_dapodik a')
+            ->innerJoin('t_sekolah_pmdk b','a.id = b.sekolah_id')
+            ->where(['like', 'a.sekolah', $term])
             ->all();
         return array_column($results, 'sekolah');
     }
@@ -373,7 +384,10 @@ class StudentController extends Controller // StudentController extends the Cont
     //action for data bahasa, this is already cleaned up
     public function actionStudentBahasa(){
         try{
-            $model = new StudentBahasaForm(); //create an instance of the StudentBahasaForm class
+            $model = StudentBahasaForm::findDataBahasa();
+            if($model === null){
+                $model = new StudentBahasaForm();
+            }
             if($model->load(Yii::$app->request->post())&& $model->insertBahasaData()){
                 return $this->redirect(['student/student-extra']);
             }
@@ -493,12 +507,15 @@ class StudentController extends Controller // StudentController extends the Cont
         try{
             return $this->render('student-announcement',['model'=>$model]);
         }catch(\Exception $e){
-            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
-            return $this->redirect(['student/error']);
+            //Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            //return $this->redirect(['student/error']);
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.'
+                .$e->getMessage());
+            return $this->redirect(['student/index']);
         }
     }
     //experimental test fetch data from my own api, case my public api
-    public function actionShowDataApi($username,$password)
+    /*public function actionShowDataApi($username,$password)
     {
         $client = new \yii\httpclient\Client();
     
@@ -526,6 +543,6 @@ class StudentController extends Controller // StudentController extends the Cont
         }
     
         return $this->render('show-data-api'); //render the data
-    }
+    }*/
 }
 ?>

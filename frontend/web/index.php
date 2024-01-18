@@ -1,7 +1,13 @@
 <?php
+//define only for development purposes
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
+//define for production environment
+/*
+defined('YII_DEBUG') or define('YII_DEBUG', false);
+defined('YII_ENV') or define('YII_ENV', 'prod');
+*/
 require __DIR__ . '/../../vendor/autoload.php';
 //load environment variable, for production
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');

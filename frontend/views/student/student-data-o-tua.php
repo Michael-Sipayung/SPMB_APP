@@ -128,20 +128,22 @@
 </div>
 <div class="row">
 <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_o, 'pendidikan_ayah',
+    <?php echo $form->field($model_student_data_o, 'pendidikan_ayah_id',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-bandaid-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>']
-        )->dropDownList(\app\models\StudentDataOForm::$education, ['prompt' => 'Pilih Pendidikan Ayah']);
+    )->label('Pendidikan Ayah')
+        ->dropDownList(\app\models\StudentDataOForm::education(), ['prompt' => 'Pilih Pendidikan Ayah']);
     ?>
     </div>
     <div class="col-12 col-md">
     <?php
-        echo $form->field($model_student_data_o, 'pendidikan_ibu',
+        echo $form->field($model_student_data_o, 'pendidikan_ibu_id',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-bandaid-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>']
-    )->dropDownList(\app\models\StudentDataOForm::$education, ['prompt' => 'Pilih Pendidikan Ibu']);
+    )->label('Pendidikan Ibu')
+    ->dropDownList(\app\models\StudentDataOForm::education(), ['prompt' => 'Pilih Pendidikan Ibu']);
     ?>
     </div>
     <div class="col-12 col-md">
@@ -163,27 +165,30 @@
 </div>
 <div class="row">
 <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_o, 'provinsi',
+    <?php echo $form->field($model_student_data_o, 'alamat_prov_orangtua',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-geo-alt-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->label("Provinsi")
         ->dropDownList(\app\models\StudentAddress::getProvince(), ['prompt' => 'Pilih Provinsi','id' => 'province-dropdown', 'onchange' => 'this-form.submit();']);
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_o, 'kabupaten',
+    <?php echo $form->field($model_student_data_o, 'alamat_kab_orangtua',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-house-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentAddress::getKabupaten($model_student_data_o->provinsi), ['prompt' => 'Pilih Kabupaten/ Kota', 'onchange' => 'this-form.submit();']);
+        ->label("Kabupaten")
+        ->dropDownList(\app\models\StudentAddress::getKabupaten($model_student_data_o->alamat_prov_orangtua), ['prompt' => 'Pilih Kabupaten/ Kota', 'onchange' => 'this-form.submit();']);
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_o, 'kecamatan',
+    <?php echo $form->field($model_student_data_o, 'alamat_kec_orangtua',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-grid-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentAddress::getKecamatan($model_student_data_o->kabupaten), ['prompt' => 'Pilih Kecamatan']);
+        ->label("Kecamatan")
+        ->dropDownList(\app\models\StudentAddress::getKecamatan($model_student_data_o->alamat_kab_orangtua), ['prompt' => 'Pilih Kecamatan']);
     ?>
     </div>
     <div class="col-12 col-md">
@@ -197,19 +202,21 @@
 </div>
 <div class="row">
 <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_o, 'pekerjaan_ayah',
+    <?php echo $form->field($model_student_data_o, 'pekerjaan_ayah_id',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-handbag-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentDataOForm::$job, ['prompt' => 'Pilih Pekerjaan Ayah']);
+        ->label("Pekerjaan Ayah")
+        ->dropDownList(\app\models\StudentDataOForm::job(), ['prompt' => 'Pilih Pekerjaan Ayah']);
     ?>
     </div>
     <div class="col-12 col-md">
-    <?php echo $form->field($model_student_data_o, 'pekerjaan_ibu',
+    <?php echo $form->field($model_student_data_o, 'pekerjaan_ibu_id',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-mortarboard-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentDataOForm::$job, ['prompt' => 'Pilih Pekerjaan Ibu']);
+        ->label("Pekerjaan Ibu")
+        ->dropDownList(\app\models\StudentDataOForm::job(), ['prompt' => 'Pilih Pekerjaan Ibu']);
     ?>
     </div>
     <div class="col-12 col-md">
