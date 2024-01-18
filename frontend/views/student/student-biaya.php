@@ -1,3 +1,6 @@
+<?php
+    use yii\helpers\Url;
+?>
 <html lang="">
 <title>Informasi Biaya Pendaftaran</title>
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -38,6 +41,9 @@
     }
     .my-form .form-control {
         border-radius: 5px;
+    }    
+    .padding-voucher {
+        padding-left: 35px;
     }
 </style>
 </html>
@@ -66,32 +72,31 @@ Biaya Pendaftaran Peserta PMB  '.date('Y').'</span>', ['class' => 'my-3 p-2 bord
     <i class="bi bi-cash-coin text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Biaya Pendaftaran')
   ->textInput(['value' => 'Rp. '.number_format($model->getBiayaAwal(), 0, ',', '.'), 'disabled' => true])
 ?>
-<?php echo $form->field($model,'virtual_account',
-    ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-credit-card-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Virtual Account')->textInput(['placeholder' => '9089 7687 8909 8978', 'disabled' => true])
-?>
-<?php echo $form->field($model,'voucher', [
-    'inputTemplate' => '
-        <div class="input-group">
-            <span class="input-group-text">
-                <i class="bi bi-gift-fill text-danger" style="font-size: 1rem;"></i>
-            </span>
-            {input}
-            <span class="input-group-btn" style="margin-left: 10px;">
-            <button class="btn btn-primary" type="submit">Pakai Voucher</button>            
-            </span>
-        </div>'
-])->label('Voucher')->textInput(['placeholder' => 'Masukan Kode Voucher']);
-?>   
+<div class="row">
+    <div class="col-md-9">
+        <?php echo $form->field($model,'voucher',
+            ['inputTemplate' => '<div class="input-group padding-voucher"><span class="input-group-text">
+            <i class="bi bi-gift-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Voucher')
+            ->textInput()
+        ?>
+    </div>
+    <div class="col-md-3">
+        <?php echo Html::button('Pakai Voucher', [
+            'class' => 'btn btn-danger',
+            'onclick' => '$.get( "'.Url::toRoute('student/hitung-biaya').'", 
+            { kode: $( "#'.Html::getInputId($model, 'voucher').'" ).val() }).done(function(data){ $( "#'.Html::getInputId($model, 'total_bayar').'" ).val(data); });',
+        ]) . " "; ?>
+    </div>
+</div>
+
 <?php echo $form->field($model,'total_bayar',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-credit-card-2-front-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Total Bayar')
     ->textInput(['value' => 'Rp. '.number_format($model->getTotalBayar(), 0, ',', '.'), 'disabled' => true])
 ?>
-<?php echo $form->field($model,'status_pembayaran',
-    ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-hourglass-bottom text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Status Pembayaran')
-    ->textInput(['value' => $model->setStatusPembayaran(), 'disabled' => true])
-?> 
+<p><label>Pastikan data anda telah benar. Setelah menekan tombol Simpan, Virtual Account anda akan dibuat untuk digunakan sebagai akun pembayaran</label></p>
+<div class="form-group" style="display: flex; justify-content: flex-end;">
+    <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'id' => 'my-button']) ?>
+</div>
 <?php ActiveForm::end(); ?>
 </div>
