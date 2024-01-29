@@ -259,7 +259,7 @@ class StudentController extends Controller // StudentController extends the Cont
     //private function for uploadFIle, needed for actionStudentAkademik
     private function uploadFile($form, $file, $uploadFolderBase, $currentBatch){
         $form->$file = UploadedFile::getInstance($form, $file); //get the instance of the uploaded file
-        //file attribute, since the file attribute is different for utbk and pmdk
+        // attribute, since the file attribute is different for utbk and pmdk
         $fileAttribute ='file_'.$file;
         if($form->$file){ //check if there is a file uploaded
             $uploadFolder = $uploadFolderBase . ($currentBatch == self::UTBK ? '' : $file . '/'); //set the upload folder
@@ -297,7 +297,7 @@ class StudentController extends Controller // StudentController extends the Cont
     //upload user data to aws, to do: clean up this action
     private function uploadToAws($form, $file, $uploadFolderBase, $currentBatch){
         $form->$file = UploadedFile::getInstance($form, $file); //get the instance of the uploaded file
-        //file attribute, since the file attribute is different for utbk and pmdk
+        // attribute, since the file attribute is different for utbk and pmdk
         $fileAttribute ='file_'.$file;
         $uploadFolder = ($currentBatch == self::UTBK ? 'sertifikat' : $file); //set the upload folder
         if($form->$file){ //check if there is a file uploaded
@@ -337,7 +337,7 @@ class StudentController extends Controller // StudentController extends the Cont
             }
         }
     }
-    //action for autocomplete for school name, for all school
+    //action for autocomplete for school name, for all school, uncommenct for batch 'pmdk general, usm &
     /*public static function actionAutocomplete($term) {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $results = (new \yii\db\Query())
