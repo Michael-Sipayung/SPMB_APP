@@ -148,7 +148,8 @@ use yii\web\JsExpression;
     <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_un',
     [   'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <i class="bi bi-book-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Jumlah Pelajaran UN')
+        <i class="bi bi-book-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->label('Jumlah Pelajaran UN')
         ->textInput(['placeholder'=>'Input jumlah pelajaran']); ?>
     <p class="text-muted" style="font-size: 0.8rem;"><i>Jika telah memperoleh nilai UN</i></p>
 </div>
@@ -156,7 +157,8 @@ use yii\web\JsExpression;
     <?php echo $form->field($model_student_akademik,'jumlah_nilai_un',
     [   'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <i class="bi bi-award-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Jumlah Nilai UN')
+        <i class="bi bi-award-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->label('Jumlah Nilai UN')
         ->textInput(['placeholder'=>'Input jumlah nilai']); ?>
     <p class="text-muted" style="font-size: 0.8rem;"><i>Jika telah memperoleh nilai UN</i></p>
 </div>
@@ -602,6 +604,30 @@ Sertifikat dan Surat Rekomendasi (format .pdf)</span>', ['class' => 'my-3 p-2 bo
     </div>
 </div>
 <!-- the end of conditional statement -->
+    <?php } ?>
+    <!-- define field for batch usm -->
+    <?php
+    if(StudentAkademikForm::getCurrentBatch() == 'usm'){
+    ?>
+     <!--  field jumlah_nilai_semester_5 and jumlah_pelajaran_semester_5-->
+    <div class="row">
+        <div class="col-12 col-md">
+        <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_semester_5',
+        [   'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+            <i class="bi bi-image-alt" style="font-size: 1rem;"></i></span>{input}</div>'])
+            ->label('Total Pelajaran Semester 5')
+            ->textInput(['placeholder'=>'Total Pelajaran','value'=>StudentAkademikForm::fetchJlhPelajaranSem5()]); ?>
+        </div>
+        <div class="col-12 col-md">
+        <?php echo $form->field($model_student_akademik,'jumlah_nilai_semester_5',
+        [   'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+            <i class="bi bi-award-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
+            ->label('Total Nilai Semester 5')
+            ->textInput(['placeholder'=>'Total Nilai', 'value'=>StudentAkademikForm::fetchJlhNilaiSem5()]); ?>
+        </div>
+    </div>
     <?php } ?>
     <div class="form-group" style="display: flex; justify-content: flex-end;">
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-primary', 'style' => 'margin-right: 10px;']) ?>
