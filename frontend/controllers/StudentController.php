@@ -35,6 +35,8 @@ class StudentController extends Controller // StudentController extends the Cont
     const UPLOADS = 'uploads/';
     const UPLOADS_PMDK = 'uploads_pmdk/';
     const UTBK = 'utbk';
+    const USM = 'usm';
+    const PMDK = 'pmdk';
     const PMDK_FILES = ['sertifikat_pmdk', 'rapor_pmdk', 'rekomendasi_pmdk'];
 
     public function behaviors() //behavior test for logout and profile update, add other behaviors here
@@ -239,7 +241,7 @@ class StudentController extends Controller // StudentController extends the Cont
                     try {
                         $this->uploadToAws($model_student_akademik, $file, $uploadFolderBase, $currentBatch);
                     } catch (\Exception $e) {
-                        Yii::$app->session->setFlash('error', $e->getMessage());
+//                        Yii::$app->session->setFlash('error', );
                         return $this->render('student-akademik', ['model_student_akademik'=>$model_student_akademik]);
                     }
                 }
@@ -247,7 +249,8 @@ class StudentController extends Controller // StudentController extends the Cont
                     if($model_student_akademik->insertStudentAkademik())
                         return $this->redirect(['student/student-bahasa']);
                 } catch (\Exception $e) {
-                    Yii::$app->session->setFlash('error', $e->getMessage());
+                    Yii::$app->session->setFlash('error', 'Something went wrong during submission, 
+                    please try again later');
                 }
             }
             return $this->render('student-akademik', ['model_student_akademik'=>$model_student_akademik]);
@@ -311,9 +314,10 @@ class StudentController extends Controller // StudentController extends the Cont
                 ]);
                 if($currentBatch==self::UTBK)
                     $form->file_sertifikat  = $result['ObjectURL']; //save the path to the database
-                else{
+                else if($currentBatch==self::PMDK){
                     $form->$fileAttribute = $result['ObjectURL']; //save the path to the database
                 }
+                //to do if usm contain file to upload
             }catch(\Exception $e){ //catch the exception
                 Yii::$app->session->setFlash('error', "Something wrong while uploading file"); //may be change this to flash error
             }
@@ -333,7 +337,7 @@ class StudentController extends Controller // StudentController extends the Cont
                 ]);
                 $form->pas_foto  = $result['ObjectURL']; //save the path to the database
             }catch(\Exception $e){ //catch the exception
-                Yii::$app->session->setFlash('error', $e->getMessage()); //may be change this to flash error
+                Yii::$app->session->setFlash('error', 'Something wrong - academic'); //may be change this to flash error
             }
         }
     }

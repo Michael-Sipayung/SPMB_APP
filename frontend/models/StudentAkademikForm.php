@@ -60,6 +60,17 @@ class StudentAkademikForm extends Model {
     public $file_rekomendasi_pmdk;
 
     //public data member for usm
+    public $jumlah_pelajaran_semester_5;
+    public $jumlah_nilai_semester_5;
+    //public data member for usm
+    private function updateDataUsm()
+    {
+        Yii::$app->db->createCommand()->update('t_pendaftar',[
+            'jumlah_pelajaran_sem_5'=>$this->jumlah_pelajaran_semester_5,
+            'jumlah_nilai_sem_5'=>$this->jumlah_nilai_semester_5,
+        ] ,['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
+    }
+
     public function rules()
     {
         //refactor the rules, corresponding to the current batch
@@ -134,6 +145,9 @@ class StudentAkademikForm extends Model {
                 $rules[] = [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required',
                     'message'=>"File tidak boleh kosong"];
             }
+        }
+        else{ //rule for usm
+            $rules[] = [['jumlah_pelajaran_semester_5', 'jumlah_nilai_semester_5'],'required'];
         }
         //add other rules for other batch: todo
         return $rules;
@@ -350,7 +364,9 @@ class StudentAkademikForm extends Model {
                         self::insertChemistryScore(); //insert chemistry score to table t_nilai_rapor
                         self::insertPhysicsScore(); //insert physics score to table t_nilai_rapor   
                     }
-
+                }
+                else{ //usm batch
+                    self::updateDataUsm(); //update data usm to table t_pendaftar
                 }
                 return true;
                 //otherwise, other batch, todo              
@@ -774,6 +790,17 @@ class StudentAkademikForm extends Model {
             return false;
         }
         return true;
+    }
+    // populate data from table t_pendaftar to form usm-academic
+    public static function fetchJlhPelajaranSem5(){
+        $sql = "SELECT jumlah_pelajaran_sem_5 FROM t_pendaftar WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
+    public static function fetchJlhNilaiSem5(){
+        $sql = "SELECT jumlah_nilai_sem_5 FROM t_pendaftar WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
     }
 }
 ?>
