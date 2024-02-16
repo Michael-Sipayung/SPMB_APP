@@ -1,10 +1,13 @@
 <?php
 namespace frontend\controllers; //should be put at the top of the file
+
+use app\models\BiayaPendaftaran;
 use Yii; // Yii is a class that represents the Yii framework
 use yii\web\Controller;
 use app\models\Country;
 use app\models\EntryForm; // EntryForm is a class that represents a form
 use app\models\CountryForm;
+use app\models\Pendaftar;
 use app\models\Student;
 use app\models\StudentDataDiriForm;
 use app\models\StudentDataOForm;
@@ -21,6 +24,8 @@ use app\models\StudentBahasaForm;
 use app\models\StudentPrestasiForm;
 use app\models\StudentInformasiForm;
 use app\models\StudentMajorForm;
+use app\models\UserFinance;
+use app\models\Voucher;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -45,12 +50,12 @@ class StudentController extends Controller // StudentController extends the Cont
                 //only registered users can access the following actions : student-data-diri, student-data-o-tua, student-extra
                 'only' => ['register-student','student-data-diri', 'student-data-o-tua', 'student-extra',
                     'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi','student-biaya',
-                    'student-announcement'],
+                    'student-announcement', 'student-info-pembayaran'],
                 'rules' => [
                     [
                         'actions' => ['student-data-diri', 'student-data-o-tua', 'student-extra',
                             'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi','student-biaya',
-                            'student-announcement'],
+                            'student-announcement', 'student-info-pembayaran'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -433,6 +438,27 @@ class StudentController extends Controller // StudentController extends the Cont
                 if($model->validateVoucher()){
                     Yii::$app->session->setFlash('ok', "Voucher berhasil digunakan, silahkan melakukan pembayaran");
                 }
+                $model->updateData();
+                
+                $pendaftar = Pendaftar::find()->where(['pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId()])->one();
+
+                if($pendaftar->gelombangPendaftaran->is_bayar === 1){
+                    $new_user_finance = UserFinance::createUser($pendaftar->pendaftar_id);
+                    if($new_user_finance != false){
+                        $generate_biaya = $model->generateBiayaPendaftaran($new_user_finance);
+                        if($generate_biaya === true){
+                            return $this->redirect(['pendaftar/view-biaya-pendaftaran']);
+                        }
+                        else{
+                            Yii::$app->session->setFlash('error', "Gagal membuat biaya pendaftaran. Silakan coba lagi atau hubungi admin PMB");
+                        }
+                    }
+                    else{
+                        Yii::$app->session->setFlash('error', "Gagal mendaftarkan akun untuk Virtual Account. Silakan coba lagi atau hubungi admin PMB");
+                    }
+                }
+                else{
+                }
             }
             return $this->render('student-biaya',['model'=>$model]);
         }catch(\Exception $e){
@@ -440,6 +466,23 @@ class StudentController extends Controller // StudentController extends the Cont
             return $this->redirect(['student/error']);
         }
     }
+    
+    public function actionHitungBiaya($kode)
+    {
+        $pendaftar_id = StudentDataDiriForm::getCurrentPendaftarId();
+        $pendaftar = Pendaftar::find()->where(['pendaftar_id' => $pendaftar_id])->one();
+        $voucher = Voucher::find()->where(['kode' => $kode])->andWhere(['gelombang_pendaftaran_id' => $pendaftar->gelombang_pendaftaran_id])->one();
+        $biaya = BiayaPendaftaran::find()->where(['gelombang_pendaftaran_id' => $pendaftar->gelombang_pendaftaran_id])->one();
+            
+        if(isset($voucher) && !is_null($voucher)){
+            $total = $biaya->biaya_daftar - $voucher->nominal;
+            echo json_encode('Rp. ' . number_format($total, 0, ',', '.'), JSON_NUMERIC_CHECK);
+        }
+            
+        else echo json_encode($biaya->biaya_daftar, JSON_NUMERIC_CHECK);
+        return;
+    }
+
     //action for pengunguman, to do more clean up on this action
     public function actionStudentPengumuman(){
         try{
