@@ -21,8 +21,8 @@ $cards = [
         'details' => [
             'Nama' => ['icon' => 'fas fa-id-card', 'value' => StudentAnnouncement::identityName()],
             'Gelombang' => ['icon' => 'fas fa-wave-square', 'value' => StudentAnnouncement::identityGelombang()],
-            'Pilihan Jurusan' => ['icon' => 'fas fa-book', 'value' => StudentAnnouncement::identityMajor1()],
-            'Pilihan Opsional' => ['icon' => 'fas fa-book-open', 'value' => StudentAnnouncement::identityMajor2(). "\n". 
+            'Pilihan 1' => ['icon' => 'fas fa-book', 'value' => StudentAnnouncement::identityMajor1()],
+            'Pilihan 2 & 3' => ['icon' => 'fas fa-book-open', 'value' => StudentAnnouncement::identityMajor2(). "\n". 
             StudentAnnouncement::identityMajor3()],
         ]
     ],

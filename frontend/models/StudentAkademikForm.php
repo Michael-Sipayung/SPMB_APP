@@ -60,6 +60,17 @@ class StudentAkademikForm extends Model {
     public $file_rekomendasi_pmdk;
 
     //public data member for usm
+    public $jumlah_pelajaran_semester_5;
+    public $jumlah_nilai_semester_5;
+    //public data member for usm
+    private function updateDataUsm()
+    {
+        Yii::$app->db->createCommand()->update('t_pendaftar',[
+            'jumlah_pelajaran_sem_5'=>$this->jumlah_pelajaran_semester_5,
+            'jumlah_nilai_sem_5'=>$this->jumlah_nilai_semester_5,
+        ] ,['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
+    }
+
     public function rules()
     {
         //refactor the rules, corresponding to the current batch
@@ -83,32 +94,39 @@ class StudentAkademikForm extends Model {
                 'required'],
                 [['no_utbk'], 'string', 'min'=>6,'max' => 20],
                 [['tanggal_ujian_utbk'], 'date', 'format' => 'php:Y-m-d', 'min' => '2021-12-01'],
-                [['nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 'nilai_kemampuan_bacaan'], 
-                'number', 'min' => 10, 'max' => 1000],
-                [['nilai_kemampuan_umum', 'nilai_semester', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
-                'nilai_kemampuan_bacaan'], 'number'],
+                [['nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum',
+                    'nilai_kemampuan_bacaan'], 'number', 'min' => 10, 'max' => 1000],
+                [['nilai_kemampuan_umum', 'nilai_semester', 'nilai_kemampuan_kuantitatif',
+                    'nilai_kemampuan_pengetahuan_umum', 'nilai_kemampuan_bacaan'], 'number'],
                 [['jumlah_pelajaran'], 'integer', 'min' => 2, 'max' => 100],
-                [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
-                [['file'],'required'], //possible to be refactored, join with the common rules
+                ['file_sertifikat', 'safe'],
+//                [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
+//                [['file'],'required'], //possible to be refactored, join with the common rules
                 //attribute for all file is safe
                 //[['file_sertifikat_pmdk', 'file_rapor_pmdk', 'file_rekomendasi_pmdk'], 'safe'],
             ]);
+            if(self::utbkSertifikatNotUploadedHelper()){
+                $rules[] = [['file'], 'file',
+                    'skipOnEmpty' => true, 'extensions' => 'pdf'];
+                $rules[] = [['file'],'required',
+                    'message'=>"File tidak boleh kosong"];
+            }
         }
         else if($this->getCurrentBatch() == 'pmdk'){
             $rules = array_merge($rules, [
-              [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5',
-                'nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4','nilai_pelajaran_5'],'required'],
-                
-                [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5'], 
-                    'integer', 'min' => 2, 'max' => 100],
-                [['nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4', 'nilai_pelajaran_5'], 'number', 'min' => 2, 'max' => 10000],
-                
+              [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4',
+                  'jumlah_pelajaran_5', 'nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3',
+                  'nilai_pelajaran_4', 'nilai_pelajaran_5'],'required'],
+                [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4',
+                    'jumlah_pelajaran_5'], 'integer', 'min' => 2, 'max' => 100],
+                [['nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4',
+                    'nilai_pelajaran_5'], 'number', 'min' => 2, 'max' => 10000],
                 [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'required'],
-                [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'number', 'min' => 10, 'max' => 100],
-                    
+                [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'number',
+                    'min' => 10, 'max' => 100],
                 [['inggris_1', 'inggris_2', 'inggris_3', 'inggris_4', 'inggris_5'], 'required'],
-                [['inggris_1', 'inggris_2', 'inggris_3', 'inggris_4', 'inggris_5'], 'number', 'min' => 10, 'max' => 100],
-                    
+                [['inggris_1', 'inggris_2', 'inggris_3', 'inggris_4', 'inggris_5'], 'number', 'min' => 10,
+                    'max' => 100],
                 [['kimia_1', 'kimia_2', 'kimia_3', 'kimia_4', 'kimia_5'], 'required'],
                 [['kimia_1', 'kimia_2', 'kimia_3', 'kimia_4', 'kimia_5'], 'number', 'min' => 10, 'max' => 100],
                     
@@ -122,16 +140,22 @@ class StudentAkademikForm extends Model {
             ]);
             //ensure the file not already uploaded, case pmdk, it can be generalized
             if(self::isFileNotUploaded()){
-                $rules[] = [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'];
-                $rules[] = [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"];
+                $rules[] = [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file',
+                    'skipOnEmpty' => true, 'extensions' => 'pdf'];
+                $rules[] = [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required',
+                    'message'=>"File tidak boleh kosong"];
             }
+        }
+        else{ //rule for usm
+            $rules[] = [['jumlah_pelajaran_semester_5', 'jumlah_nilai_semester_5'],'required'];
         }
         //add other rules for other batch: todo
         return $rules;
     }
     //isFileNotUploaded : function for ensure the file not already uploaded, case pmdk, it can be generalized
     private function isFileNotUploaded(){
-        $sql = "SELECT file_rekomendasi FROM t_pendaftar WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $sql = "SELECT file_rekomendasi FROM t_pendaftar WHERE pendaftar_id 
+                                                   = ".StudentDataDiriForm::getCurrentPendaftarId();
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
         if($data == null){
             return true;
@@ -175,28 +199,29 @@ class StudentAkademikForm extends Model {
     //auxiliary function to update data nilai akademik to table t_nilai_rapor, 
     //condition getCurrenPendafarId()
     public function tempDataNilaiAkademik(){
-        Yii::$app->db->createCommand()->update('t_nilai_rapor',[
-            'smt'=>$this->jumlah_pelajaran,
-            'nilai'=>$this->nilai_semester,
-        ],['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
+//        Yii::$app->db->createCommand()->update('t_nilai_rapor',[
+//            'smt'=>$this->jumlah_pelajaran,
+//            'nilai'=>$this->nilai_semester,
+//        ],['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
     }
     //auxilary function to insert pendaftar_id to table t_nilai_rapor,
-    //worst case: first data is t_nili_rapor
+    //worst case: first data is t_nilai_rapor
     public function tempPendaftarIdNilaiAkademik(){ //good for research, new implementation
-        Yii::$app->db->createCommand()->insert('t_nilai_rapor',
-        [
-            'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
-            'mata_pelajaran_id'=>1, //may be changed later, since the structure of mata_pel_id is not clear
-            'smt'=>$this->jumlah_pelajaran,
-            'nilai'=>$this->nilai_semester,
-        ])->execute();
+//        Yii::$app->db->createCommand()->insert('t_nilai_rapor',
+//        [
+//            'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+//            'mata_pelajaran_id'=>1, //may be changed later, since the structure of mata_pel_id is not clear
+//            'smt'=>$this->jumlah_pelajaran,
+//            'nilai'=>$this->nilai_semester,
+//        ])->execute();
     }
     //auxiliary function to update data nilai utbk to table t_utbk, condition getCurrenPendafarId()
     public function tempUpdateDataUtbk(){
         Yii::$app->db->createCommand()->update('t_utbk',[
             'no_peserta'=>self::removeNonInteger_noPeserta($this->no_utbk),
             'tanggal_ujian'=>$this->tanggal_ujian_utbk,
-            'file_sertifikat'=>$this->file_sertifikat,
+            //using ternary operator to handle if file not changed
+            'file_sertifikat'=>$this->file_sertifikat ?: self::utbkSertifikatHelper() ,
             'updated_at'=>date('Y-m-d H:i:s'),
             'updated_by'=>Yii::$app->user->identity->username,
             'created_by'=>Yii::$app->user->identity->username,
@@ -339,13 +364,16 @@ class StudentAkademikForm extends Model {
                         self::insertChemistryScore(); //insert chemistry score to table t_nilai_rapor
                         self::insertPhysicsScore(); //insert physics score to table t_nilai_rapor   
                     }
-
+                }
+                else{ //usm batch
+                    self::updateDataUsm(); //update data usm to table t_pendaftar
                 }
                 return true;
                 //otherwise, other batch, todo              
             } catch(Exception $e){
                 //flash error message
-                Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
+                Yii::$app->session->setFlash('error', "Something went wrong, 
+                please contact the administrator or try again later". $e->getMessage());
                 //Yii::error('Error occurred: ' . $e->getMessage());
             }
         } 
@@ -433,7 +461,8 @@ class StudentAkademikForm extends Model {
     }
     //private member to tell the current batch
     public static function getCurrentBatch(){
-        $sql = "SELECT gelombang_pendaftaran_id FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
+        $sql = "SELECT gelombang_pendaftaran_id FROM t_pendaftar WHERE user_id = ".
+            StudentDataDiriForm::getCurrentUserId();
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
         //fetch description from t_r_gelombang_pendaftaran where gelombang_pendaftaran_id = $data
         //make sure the $data is not null: todo
@@ -478,13 +507,15 @@ class StudentAkademikForm extends Model {
     private function updateDataUtbk(){
         if(!self::pendaftarIdExists()) //not exists, insert pendaftar_id to t_utbk
             self::tempPendaftarSekolahUtbk(); //insert pendaftar_id to t_utbk, worst case, user interact to data akademik first
-        self::tempUpdateDataUtbk(); //update data utbk 
+        self::tempUpdateDataUtbk(); //update data utbk
+        self::utbkUpdateNilaiSemesterHelper(); //update data nilai semester-t_pendaftar
         //update data to table t_pendaftar, sekolah_dapodik_id, jurusan_sekolah_id, akreditasi_sekolah
         //set flash message 
         //find pendaftar_id from table t_nila_rapor, if not exists, insert pendaftar_id to t_nilai_rapor
         //using sql query, since we don't have a function 
         //handling for t_nilai_rapor
-        $sql = "SELECT pendaftar_id FROM t_nilai_rapor WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $sql = "SELECT pendaftar_id FROM t_nilai_rapor WHERE pendaftar_id = 
+                                             ".StudentDataDiriForm::getCurrentPendaftarId();
         $data = Yii::$app->db->createCommand($sql)->queryOne();
         if(!$data) //not exists, insert pendaftar_id to t_nilai_rapor
             self::tempPendaftarIdNilaiAkademik(); //insert pendaftar_id to t_nilai_rapor, worst case, user interact to data akademik first
@@ -714,6 +745,62 @@ class StudentAkademikForm extends Model {
         'akreditasi_sekolah' => 'akreditasi_sekolah',
         // Add more if needed
     ];
-
+    //return utbk file if exist
+    public static function utbkSertifikatHelper()
+    {
+        $sql = "SELECT file_sertifikat FROM t_utbk WHERE pendaftar_id = :pendaftarId";
+        $file_sertifikat = Yii::$app->db->createCommand($sql, [':pendaftarId'
+            => StudentDataDiriForm::getCurrentPendaftarId()])->queryOne();
+        if ($file_sertifikat){
+            return $file_sertifikat['file_sertifikat'];
+        }
+        return $file_sertifikat;
+    }
+    //helper for utbk, show total pelajaran semester 6
+    public static function utbkJumlahPelajaranHelper(){
+        $sql = "SELECT jumlah_pelajaran_sem_6 FROM t_pendaftar WHERE pendaftar_id = :pendaftarId";
+        $jumlah_pelajaran = Yii::$app->db->createCommand($sql, [':pendaftarId'
+            => StudentDataDiriForm::getCurrentPendaftarId()])->queryOne();
+        if ($jumlah_pelajaran){
+            return $jumlah_pelajaran['jumlah_pelajaran_sem_6'];
+        }
+        return $jumlah_pelajaran;
+    }
+    //helper for utbk, show total nilai semester 6
+    public static function utbkJumlahNilaiHelper(){
+        $sql = "SELECT jumlah_nilai_sem_6 FROM t_pendaftar WHERE pendaftar_id = :pendaftarId";
+        $jumlah_nilai = Yii::$app->db->createCommand($sql, [':pendaftarId'
+            => StudentDataDiriForm::getCurrentPendaftarId()])->queryOne();
+        if ($jumlah_nilai){
+            return $jumlah_nilai['jumlah_nilai_sem_6'];
+        }
+        return $jumlah_nilai;
+    }
+    private function utbkUpdateNilaiSemesterHelper(){
+        Yii::$app->db->createCommand()->update('t_pendaftar',[
+            'jumlah_pelajaran_sem_6'=>$this->jumlah_pelajaran,
+            'jumlah_nilai_sem_6'=>$this->nilai_semester,
+        ],['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
+    }
+    private function utbkSertifikatNotUploadedHelper(){
+        $sql = "SELECT file_sertifikat FROM t_utbk WHERE pendaftar_id 
+                                                   = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryOne();
+        if($data){
+            return false;
+        }
+        return true;
+    }
+    // populate data from table t_pendaftar to form usm-academic
+    public static function fetchJlhPelajaranSem5(){
+        $sql = "SELECT jumlah_pelajaran_sem_5 FROM t_pendaftar WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
+    public static function fetchJlhNilaiSem5(){
+        $sql = "SELECT jumlah_nilai_sem_5 FROM t_pendaftar WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
 }
 ?>

@@ -46,7 +46,7 @@ $title  = 'Data Kemampuan Bahasa Asing';
 ?>
 <?php
 //include task navigation component
-// include 'TaskNavigation.php';
+include 'TaskNavigation.php';
 ?>
 <div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
