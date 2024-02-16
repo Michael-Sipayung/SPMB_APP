@@ -85,7 +85,7 @@ use yii\web\JsExpression;
 ?>
 <?php
 //include task navigation component
-// include 'TaskNavigation.php';
+include 'TaskNavigation.php';
 ?>
 <?php 
     function toRoman($num) {
