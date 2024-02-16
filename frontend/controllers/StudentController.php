@@ -4,13 +4,13 @@ namespace frontend\controllers; //should be put at the top of the file
 use app\models\BiayaPendaftaran;
 use Yii; // Yii is a class that represents the Yii framework
 
-namespace frontend\controllers;
+//namespace frontend\controllers;
 //should be put at the top of the file
 use app\models\StudentBiayaForm;
 use app\models\StudentPengumumanForm;
 use Aws\S3\S3Client;
 use Exception;
-use Yii;
+//use Yii;
 
 // Yii is a class that represents the Yii framework
 use yii\db\Query;
