@@ -1,5 +1,7 @@
 
 <?php
+
+use app\models\CalonMahasiswa;
 use app\models\Student;
 use app\models\StudentAkademikForm;
 use app\models\StudentDataDiri;
@@ -109,6 +111,10 @@ if (Yii::$app->user->isGuest) {
     $icon_prestasi = StudentPrestasiForm::isFillDataPrestasi() ? '<i class="bi bi-check-circle-fill text-success menu-icon position-absolute" style="right: 10px;"></i>' : '<i class="bi bi-exclamation-triangle-fill text-danger menu-icon position-absolute" style="right: 10px;"></i>';
     $icon_informasi  = StudentInformasiForm::isFillDataInformasi() ? '<i class="bi bi-check-circle-fill text-success menu-icon position-absolute" style="right: 10px;"></i>' : '<i class="bi bi-exclamation-triangle-fill text-danger menu-icon position-absolute" style="right: 10px;"></i>';
     $icon_biaya = StudentBiayaForm::getStatusPembayaran() ? '<i class="bi bi-check-circle-fill text-success menu-icon position-absolute" style="right: 10px;"></i>' : '<i class="bi bi-exclamation-triangle-fill text-danger menu-icon position-absolute" style="right: 10px;"></i>';
+    $icon_penulang = CalonMahasiswa::getStatusTagihanPenulang() ? '<i class="bi bi-check-circle-fill text-success menu-icon position-absolute" style="right: 10px;"></i>' : '<i class="bi bi-exclamation-triangle-fill text-danger menu-icon position-absolute" style="right: 10px;"></i>';
+    
+    $link_biaya = StudentBiayaForm::getVa() ? '/pendaftar/view-biaya-pendaftaran' : '/student/student-biaya';
+    $link_penulang = '/calon-mahasiswa/view-biaya-pendaftaran-ulang'; // : '/student/student-biaya';
     $menuItems[] = [
         'label' => '<i class="bi bi-pencil-square text-danger"></i> <span class="nav-label">Update Data</span>', 
         'url' => ['/student/student-data-diri'], 
@@ -121,7 +127,8 @@ if (Yii::$app->user->isGuest) {
             ['label' => '<i class="bi bi-pin-fill menu-icon"></i> Data Ekstrakurikuler'. $icon_extra, 'url' => '/student/student-extra', 'encode'=>false],
             ['label' => '<i class="bi bi-trophy-fill menu-icon"></i> Data Prestasi'. $icon_prestasi, 'url'=>'/student/student-prestasi','encode'=>false],
             ['label' => ' <i class="bi bi-webcam-fill menu-icon"></i> Data Informasi PMB'. $icon_informasi, 'url'=>'/student/student-informasi', 'encode'=>false],
-            ['label' => '<i class="bi bi-wallet-fill menu-icon"></i> Data Biaya dan VA'. $icon_biaya, 'url'=>'/student/student-biaya','encode'=>false],
+            ['label' => '<i class="bi bi-wallet-fill menu-icon"></i> Data Biaya dan VA'. $icon_biaya, 'url'=> $link_biaya,'encode'=>false],
+            ['label' => '<i class="bi bi-wallet-fill menu-icon"></i> Biaya Daftar Ulang'. $icon_penulang, 'url'=> $link_penulang,'encode'=>false],
 
         ]
     ];

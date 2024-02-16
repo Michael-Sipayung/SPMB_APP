@@ -1,12 +1,16 @@
 <?php
+namespace frontend\controllers; //should be put at the top of the file
 
-namespace frontend\controllers;
+use app\models\BiayaPendaftaran;
+use Yii; // Yii is a class that represents the Yii framework
+
+//namespace frontend\controllers;
 //should be put at the top of the file
 use app\models\StudentBiayaForm;
 use app\models\StudentPengumumanForm;
 use Aws\S3\S3Client;
 use Exception;
-use Yii;
+//use Yii;
 
 // Yii is a class that represents the Yii framework
 use yii\db\Query;
@@ -16,6 +20,7 @@ use app\models\EntryForm;
 
 // EntryForm is a class that represents a form
 use app\models\CountryForm;
+use app\models\Pendaftar;
 use app\models\Student;
 use app\models\StudentDataDiriForm;
 use app\models\StudentDataOForm;
@@ -32,6 +37,8 @@ use app\models\StudentBahasaForm;
 use app\models\StudentPrestasiForm;
 use app\models\StudentInformasiForm;
 use app\models\StudentMajorForm;
+use app\models\UserFinance;
+use app\models\Voucher;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -77,12 +84,11 @@ class StudentController extends Controller // StudentController extends the Cont
                 'only' => ['register-student', 'student-data-diri', 'student-data-o-tua', 'student-extra',
                     'student-akademik', 'student-bahasa', 'student-prestasi',
                     'student-informasi', 'student-biaya',
-                    'student-announcement'],
+                    'student-announcement', 'student-info-pembayaran'],
                 'rules' => [
                     [
                         'actions' => ['student-data-diri', 'student-data-o-tua', 'student-extra',
-                            'student-akademik', 'student-bahasa', 'student-prestasi',
-                            'student-informasi', 'student-biaya',
+                            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi','student-biaya',
                             'student-announcement'],
                         'allow' => true,
                         'roles' => ['@'],
@@ -525,6 +531,27 @@ class StudentController extends Controller // StudentController extends the Cont
                     Yii::$app->session->setFlash('ok',
                         "Voucher berhasil digunakan, silahkan melakukan pembayaran");
                 }
+                $model->updateData();
+                
+                $pendaftar = Pendaftar::find()->where(['pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId()])->one();
+
+                if($pendaftar->gelombangPendaftaran->is_bayar === 1){
+                    $new_user_finance = UserFinance::createUser($pendaftar->pendaftar_id);
+                    if($new_user_finance != false){
+                        $generate_biaya = $model->generateBiayaPendaftaran($new_user_finance);
+                        if($generate_biaya === true){
+                            return $this->redirect(['pendaftar/view-biaya-pendaftaran']);
+                        }
+                        else{
+                            Yii::$app->session->setFlash('error', "Gagal membuat biaya pendaftaran. Silakan coba lagi atau hubungi admin PMB");
+                        }
+                    }
+                    else{
+                        Yii::$app->session->setFlash('error', "Gagal mendaftarkan akun untuk Virtual Account. Silakan coba lagi atau hubungi admin PMB");
+                    }
+                }
+                else{
+                }
             }
             return $this->render('student-biaya', ['model' => $model]);
         } catch (Exception $e) {
@@ -533,13 +560,10 @@ class StudentController extends Controller // StudentController extends the Cont
             return $this->redirect(['student/error']);
         }
     }
-
-    //action for store biaya, to do more clean up on this action
-
-    public function actionStudentPengumuman()
-    {
-        try {
-            $model = new StudentPengumumanForm();
+    //action for pengunguman, to do more clean up on this action
+    public function actionStudentPengumuman(){
+        try{
+            $model = new \app\models\StudentPengumumanForm();
             //set flash message if the data is successfully inserted to database
             if ($model->load(Yii::$app->request->post()) && $model->insertPengumumanData()) {
                 return $this->redirect(['student/student-biaya']);
